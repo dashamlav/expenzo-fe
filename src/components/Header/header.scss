@@ -1,0 +1,43 @@
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #23395d;
+    font-family: Merriweather Sans, sans-serif;
+    color: white;
+    height: 120px;
+}
+
+.brand-name {
+    letter-spacing: 15px;
+    font-size: 40px;
+    font-weight:bold;
+}
+
+.nav-ul {
+    list-style-type: none;
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+
+}
+
+.nav-list p {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 3px;
+    padding: 10px 10px 10px 10px;
+    transition: color .5s;
+
+}
+
+.nav-list p:hover {
+    color: #999999;
+}
+
+
+
