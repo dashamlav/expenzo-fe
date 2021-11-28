@@ -1,8 +1,85 @@
 .modal-content {
+    font-family: 'Poppins', sans-serif;
     color: black;
     margin: auto;
     padding: 20px;
     border-radius: 4px;
     max-width: 300px;
     height: 450px;
+}
+
+#feedback-card-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15pt;
+    letter-spacing: 4px;
+    padding-bottom: 25px;
+    padding-top: 0px;
+    margin: none;
+    text-align: center;
+}
+
+h2 {
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+.feedback-underline-title {
+    background: #23395d;
+    height: 2px;
+    margin: -1.2rem auto 0 auto;
+    width: 150pt;
+}
+
+.feedback-form {
+    align-items: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.feedback-form-border {
+    background: #23395d;
+    height: 1px;
+    width: 100%;
+}
+
+.feedback-form-content {
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    outline: none;
+    padding-top: 7px;
+    height: 20pt;
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+#feedback-submit-btn {
+    background: #23395d;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    height: 40px;
+    margin: 0 auto;
+    margin-top: 50px;
+    transition: 0.2s;
+    width: 155px;
+}
+
+#feedback-submit-btn:hover {
+    box-shadow: 0px 1px 10px #36578d;
+}
+
+#feedback-text {
+    height: 100px;
+}
+
+.feedback-label {
+    font-family: 'Poppins', sans-serif;
+    padding-top: 13px;
+}
+
+.logo-anchor {
+    text-align: center;
+    margin: 5px 5px 5px 5px;
 }
