@@ -33,7 +33,7 @@ const ModalCard = styled.div`
 const CloseButton = styled.button`
     position: absolute;
     top: 0;
-    right: 0;
+    right: 5px;
     border-radius: 50%;
     border: none;
     color: #23395d;

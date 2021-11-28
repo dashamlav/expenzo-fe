@@ -1,5 +1,7 @@
 import React from 'react'
 import './modalContent.scss'
+import LinkedInLogo from '../../../assets/images/linkedinlogo.svg'
+import GithubLogo from '../../../assets/images/githublogo.svg'
 
 const HowItWorks = () => {
     return (
@@ -12,19 +14,53 @@ const HowItWorks = () => {
 const Feedback = () => {
     return (
         <div class="modal-content">
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Libero enim sed faucibus turpis. Nibh tortor id aliquet lectus. Erat nam at lectus urna duis convallis. Tincidunt eget nullam non nisi est sit. Donec pretium vulputate sapien nec sagittis aliquam malesuada. Cras semper auctor neque vitae tempus quam pellentesque. Arcu dui vivamus arcu felis bibendum ut. At imperdiet dui accumsan sit amet nulla facilisi morbi tempus. Morbi tristique senectus et netus et malesuada fames ac turpis. Pulvinar neque laoreet suspendisse interdum consectetur libero id. Diam donec adipiscing tristique risus nec feugiat in fermentum. Vestibulum lorem sed risus ultricies. Sit amet cursus sit amet dictum sit amet justo donec.
-
-Cursus risus at ultrices mi tempus imperdiet nulla malesuada pellentesque. Odio ut enim blandit volutpat maecenas. Egestas quis ipsum suspendisse ultrices gravida dictum fusce ut. Egestas diam in arcu cursus euismod. Donec adipiscing tristique risus nec feugiat. At imperdiet dui accumsan sit amet nulla facilisi morbi tempus. Et molestie ac feugiat sed lectus. Eros in cursus turpis massa tincidunt dui ut ornare lectus. Fames ac turpis egestas maecenas pharetra convallis posuere morbi. Facilisi morbi tempus iaculis urna id volutpat lacus laoreet non. Fames ac turpis egestas maecenas pharetra convallis. Sit amet cursus sit amet dictum sit amet justo. Amet luctus venenatis lectus magna. Tortor at auctor urna nunc id. Ullamcorper malesuada proin libero nunc consequat interdum varius. Ullamcorper dignissim cras tincidunt lobortis feugiat. Pellentesque habitant morbi tristique senectus et netus et malesuada. Vestibulum morbi blandit cursus risus at ultrices mi tempus imperdiet. Amet commodo nulla facilisi nullam. Enim sed faucibus turpis in eu mi bibendum neque.</p>
+            <div id="feedback-card-title">
+                <h2>FEEDBACK</h2>
+                <div class="feedback-underline-title"></div>
+            </div>
+            <form class="feedback-form">
+                <label for="feedback-user-name" className="feedback-label">
+                    &nbsp;NAME
+                </label>
+                <input id="feedback-user-name" className="feedback-form-content" type="text" name="name" required />
+                <div class="feedback-form-border"></div>
+                <label for="feedback-user-email" className="feedback-label">&nbsp;EMAIL
+                </label>
+                <input id="feedback-user-email" className="feedback-form-content" type="email" name="email" required />
+                <div class="feedback-form-border"></div>
+                <label for="feedback-text" className="feedback-label">&nbsp;MESSAGE
+                </label>
+                <textarea id="feedback-text" className="feedback-form-content" name="text" required />
+                <div class="feedback-form-border"></div>
+                <input id="feedback-submit-btn" type="submit" name="submit" value="SUBMIT" />
+            </form>
         </div>
     )
 }
 
 const AboutMe = () => {
     return (
-        <div class="modal-content">
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mattis aliquam faucibus purus in massa tempor nec feugiat. Interdum velit laoreet id donec. Orci sagittis eu volutpat odio facilisis mauris sit. Dignissim sodales ut eu sem integer vitae justo eget magna. Massa sed elementum tempus egestas sed sed. Rhoncus dolor purus non enim. Orci dapibus ultrices in iaculis nunc sed augue. Sed id semper risus in hendrerit gravida rutrum quisque non. Donec ultrices tincidunt arcu non sodales neque sodales. Etiam non quam lacus suspendisse faucibus interdum posuere lorem ipsum.
+        <div className="modal-content">
+           <p className="about-text">
+                Hey! 
 
-Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Amet consectetur adipiscing elit ut aliquam. Massa enim nec dui nunc. Euismod lacinia at quis risus sed vulputate odio ut enim. Interdum varius sit amet mattis vulputate enim. Enim ut tellus elementum sagittis. Sed nisi lacus sed viverra tellus in hac habitasse. Sit amet facilisis magna etiam. Bibendum enim facilisis gravida neque convallis a cras semper auctor. Enim facilisis gravida neque convallis a cras semper. Metus dictum at tempor commodo ullamcorper. Etiam sit amet nisl purus. Eu volutpat odio facilisis mauris sit. Sit amet commodo nulla facilisi nullam vehicula ipsum a. Amet volutpat consequat mauris nunc congue nisi vitae. Mi tempus imperdiet nulla malesuada pellentesque elit eget gravida. Nec ultrices dui sapien eget mi proin sed libero.</p>
+                I am Abhishek Thaker, a 2020 graduate from IIT Roorkee, currently working as a full time Software Engineer.
+                I predominantly write server side code in Python/Javascript using frameworks like Django, Flask, ExpressJS.
+                I also have a working knowledge of ReactJS and AngularJS.
+                In my free time, I like to watch movies, read books or play chess.
+                Feel free to connect with me on LinkedIn or Github.
+               <br></br>
+            </p>
+            <div style={ {textAlign: "center"} }>
+                <a className="logo-anchor" href="https://www.linkedin.com/in/abhishekthaker/" target="_blank" rel="noopener noreferrer">
+                    <img id="li-logo" src={LinkedInLogo} className="App-logo" alt="linkedin" />
+                </a>
+                <a className="logo-anchor" href="https://github.com/dashamlav" target="_blank" rel="noopener noreferrer">
+                    <img id="gh-logo" src={GithubLogo}  className="App-logo" alt="github" />
+                </a>
+            </div>
+               
+           
         </div>
     )
 }
