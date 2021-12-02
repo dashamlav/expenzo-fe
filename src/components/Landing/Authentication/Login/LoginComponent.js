@@ -1,8 +1,20 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import './login.scss'
-
+import AuthContext from '../../../../contextManager/AuthContextManager'
 
 const LoginComponent = () => {
+
+    const authCtx = useContext(AuthContext)
+
+    const loginSubmitHandler = (event) => {
+        event.preventDefault()
+        const email = event.target.email.value
+        const password = event.target.password.value
+        
+       //Validate fields here, and then send request to backend.
+        // Get token in response and set AuthContext
+        // authCtx.loginHandler(token)
+    }
 
     return( 
         <div className="login-card-content">
@@ -10,7 +22,7 @@ const LoginComponent = () => {
                 <h2>LOGIN</h2>
                 <div class="underline-title"></div>
             </div>
-            <form class="login-form">
+            <form class="login-form" onSubmit={loginSubmitHandler}>
                 <label for="login-user-email" style={{'padding-top':'13px'}}>
                     &nbsp;EMAIL
                 </label>

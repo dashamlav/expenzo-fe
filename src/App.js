@@ -1,13 +1,17 @@
+import React from 'react'
 import './App.css';
 import Header from './components/Header/HeaderComponent'
-import LandingPageComponent from './components/Landing/LandingPageComponent'
-
+import { Route, Routes } from 'react-router-dom'
+import RootRoute from './routes/RootRoute'
 
 function App() {
   return (
     <div className="App">
       <Header></Header>
-      <LandingPageComponent></LandingPageComponent>
+        <Routes>
+            <Route path='/' element={<RootRoute/>}/>
+        </Routes>
+      
     </div>
   );
 }
