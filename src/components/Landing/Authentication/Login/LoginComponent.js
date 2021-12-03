@@ -1,9 +1,12 @@
-import React, {useContext} from 'react'
-import './login.scss'
+import React, { useContext, useState } from 'react'
+import '../auth.scss'
 import AuthContext from '../../../../contextManager/AuthContextManager'
+import { urlFormat } from '../../../../utils/urlFormat'
 
 const LoginComponent = () => {
 
+    const [errorMsg, setErrorMsg] = useState(null)
+    const [borderClass, setBorderClass] = useState("auth-form-border")
     const authCtx = useContext(AuthContext)
 
     const loginSubmitHandler = (event) => {
@@ -11,31 +14,57 @@ const LoginComponent = () => {
         const email = event.target.email.value
         const password = event.target.password.value
         
-       //Validate fields here, and then send request to backend.
-        // Get token in response and set AuthContext
-        // authCtx.loginHandler(token)
+        const loginApiUrl = urlFormat('accounts/login')
+        const loginFormData = new FormData()
+        loginFormData.append('email', email)
+        loginFormData.append('password', password)
+        const requestOptions = {
+            method: "POST",
+            body: loginFormData
+        }
+        fetch(loginApiUrl, requestOptions)
+            .then((res)=>{
+                if (!res.ok) {
+                    setErrorMsg("Authentication failed")
+                    setBorderClass("auth-form-border-error")
+                } else {
+                    setErrorMsg(null)
+                    setBorderClass("auth-form-border")
+                    return res.json()
+                }
+            })
+            .then((data)=>{
+                if(data) {
+                    const token = data.token
+                    authCtx.loginHandler(token)
+                }
+            })
+       
     }
 
     return( 
-        <div className="login-card-content">
-            <div id="login-card-title">
+        <div className="auth-card-content">
+            <div className="auth-card-title">
                 <h2>LOGIN</h2>
-                <div class="underline-title"></div>
+                <div className="underline-title"></div>
             </div>
-            <form class="login-form" onSubmit={loginSubmitHandler}>
+            <form class="auth-form" onSubmit={loginSubmitHandler}>
                 <label for="login-user-email" style={{'padding-top':'13px'}}>
                     &nbsp;EMAIL
                 </label>
-                <input id="login-user-email" class="login-form-content" type="email" name="email" required />
-                <div class="login-form-border"></div>
+                <input id="login-user-email" className="auth-form-content" type="email" name="email" required />
+                <div className={borderClass}></div>
                 <label for="login-user-password" style={{'padding-top':'13px'}}>&nbsp;PASSWORD
                 </label>
-                <input id="login-user-password" class="login-form-content" type="password" name="password" required />
-                <div class="login-form-border"></div>
-                <a href="#">
+                <input id="login-user-password" className="auth-form-content" type="password" name="password" required />
+                <div className={borderClass}></div>
+                {/* <a href="#">
                 <legend id="forgot-password">Forgot password?</legend>
-                </a>
-                <input id="login-submit-btn" type="submit" name="submit" value="LOGIN" />
+                </a> */}
+                {
+                    (errorMsg) && <legend className="error-text">{errorMsg}</legend>
+                }
+                <input className="auth-submit-btn" type="submit" name="submit" value="LOGIN" />
             </form>
         </div>
         
