@@ -1,8 +1,11 @@
-import React, {useContext} from 'react'
-import './register.scss'
+import React, { useContext, useState } from 'react'
+import '../auth.scss'
 import AuthContext from '../../../../contextManager/AuthContextManager'
+import { urlFormat } from '../../../../utils/urlFormat'
 
 const RegisterComponent = () => {
+    const [errorMsg, setErrorMsg] = useState(null)
+    const [borderClass, setBorderClass] = useState("auth-form-border")
     const authCtx = useContext(AuthContext)
 
     const registerSubmitHandler = (event) => {
@@ -11,38 +14,67 @@ const RegisterComponent = () => {
         const email = event.target.email.value
         const password = event.target.password.value
         const confirmPassword = event.target.cnf_password.value
-
-        //Validate fields here, and then send request to backend.
-        // Get token in response and set AuthContext
-        // authCtx.loginHandler(token)
+    
+        if (password !== confirmPassword) {
+            setErrorMsg("Passwords don't match")
+            return
+        }
+        const registerApiUrl = urlFormat('accounts/register')
+        const registerFormData = new FormData()
+        registerFormData.append('name', name)
+        registerFormData.append('email', email)
+        registerFormData.append('password', password)
+        const requestOptions = {
+            method: "POST",
+            body: registerFormData
+        }
+        fetch(registerApiUrl, requestOptions)
+            .then((res)=>{
+                if (!res.ok) {
+                    setErrorMsg("Registration failed")
+                    setBorderClass("auth-form-border-error")
+                } else {
+                    setErrorMsg(null)
+                    setBorderClass("auth-form-border")
+                    return res.json()
+                }
+            })
+            .then((data)=>{
+                if(data) {
+                    const token = data.token
+                    authCtx.loginHandler(token)
+                }
+            })
     }
     return (
-        <div className="register-card-content">
-            <div id="register-card-title">
+        <div className="auth-card-content">
+            <div className="auth-card-title">
                 <h2>REGISTER</h2>
                 <div class="underline-title"></div>
             </div>
-            <form class="login-form" onSubmit={registerSubmitHandler}>
+            <form className="auth-form" onSubmit={registerSubmitHandler}>
                 <label for="register-name" style={{'padding-top':'13px'}}>&nbsp;NAME
                 </label>
-                <input id="register-name" class="register-form-content" name="name" required />
-                <div class="register-form-border"></div>
+                <input id="register-name" className="auth-form-content" name="name" required />
+                <div className={borderClass}></div>
                 <label for="register-user-email" style={{'padding-top':'13px'}}>
                     &nbsp;EMAIL
                 </label>
-                <input id="register-user-email" class="register-form-content" type="email" name="email" required />
-                <div class="register-form-border"></div>
+                <input id="register-user-email" class="auth-form-content" type="email" name="email" required />
+                <div className={borderClass}></div>
                 <label for="register-user-password" style={{'padding-top':'13px'}}>&nbsp;PASSWORD
                 </label>
-                <input id="register-user-password" class="register-form-content" type="password" name="password" required />
-                <div class="register-form-border"></div>
+                <input id="register-user-password" className="auth-form-content" type="password" name="password" required />
+                <div className={borderClass}></div>
 
                 <label for="register-user-re-password" style={{'padding-top':'13px'}}>&nbsp;CONFIRM PASSWORD
                 </label>
-                <input id="register-user-re-password" class="register-form-content" type="password" name="cnf_password" required />
-                <div class="register-form-border"></div>
-
-                <input id="register-submit-btn" type="submit" name="submit" value="REGISTER" />
+                <input id="register-user-re-password" className="auth-form-content" type="password" name="cnf_password" required />
+                <div className={borderClass}></div>
+                {
+                    (errorMsg) && <legend className="error-text">{errorMsg}</legend>
+                }
+                <input className="auth-submit-btn" type="submit" name="submit" value="REGISTER" />
             </form>
         </div>
 

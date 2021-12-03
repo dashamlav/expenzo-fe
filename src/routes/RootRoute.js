@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import LandingPageComponent from '../components/Landing/LandingPageComponent'
 import ProfileComponent from '../components/Profile/ProfileComponent'
+import AuthContext from '../contextManager/AuthContextManager'
 
 const RootRoute = () => {
 
-    const [loggedIn, setLoggedIn] = useState(false)
-
-    useEffect(()=> {
-        let isLoggenIn = false;
-        setLoggedIn(isLoggenIn)
-    },[])
+    const authCtx = useContext(AuthContext)
 
     return (
         <React.Fragment>
-            {(loggedIn)? <ProfileComponent/> : <LandingPageComponent/>}            
+            {(authCtx.isLoggedIn)? <ProfileComponent/> : <LandingPageComponent/>}            
         </React.Fragment>
     )
 }
