@@ -31,7 +31,7 @@ const RegisterComponent = () => {
         fetch(registerApiUrl, requestOptions)
             .then((res)=>{
                 if (!res.ok) {
-                    setErrorMsg("Registration failed")
+                    setErrorMsg("Account already exists!")
                     setBorderClass("auth-form-border-error")
                 } else {
                     setErrorMsg(null)
@@ -45,12 +45,16 @@ const RegisterComponent = () => {
                     authCtx.loginHandler(token)
                 }
             })
+            .catch((networkErr)=>{
+                setErrorMsg("Network error")
+                console.log(networkErr)
+            })
     }
     return (
         <div className="auth-card-content">
             <div className="auth-card-title">
                 <h2>REGISTER</h2>
-                <div class="underline-title"></div>
+                <div className="underline-title" style={{width:160}}></div>
             </div>
             <form className="auth-form" onSubmit={registerSubmitHandler}>
                 <label for="register-name" style={{'padding-top':'13px'}}>&nbsp;NAME
@@ -64,7 +68,7 @@ const RegisterComponent = () => {
                 <div className={borderClass}></div>
                 <label for="register-user-password" style={{'padding-top':'13px'}}>&nbsp;PASSWORD
                 </label>
-                <input id="register-user-password" className="auth-form-content" type="password" name="password" required />
+                <input id="register-user-password" className="auth-form-content" type="password" name="password" minlength="10" required />
                 <div className={borderClass}></div>
 
                 <label for="register-user-re-password" style={{'padding-top':'13px'}}>&nbsp;CONFIRM PASSWORD

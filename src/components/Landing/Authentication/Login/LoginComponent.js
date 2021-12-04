@@ -39,6 +39,10 @@ const LoginComponent = () => {
                     authCtx.loginHandler(token)
                 }
             })
+            .catch((networkErr)=>{
+                setErrorMsg("Network error")
+                console.log(networkErr)
+            })
        
     }
 
