@@ -1,6 +1,6 @@
 
 nav {
-    display: flex;
+    display:flex;
     justify-content: space-around;
     align-items: center;
     background-color: #23395d;
@@ -18,7 +18,7 @@ nav {
 .nav-ul {
     list-style-type: none;
     display: flex;
-    width: 50%;
+    width: 70%;
     justify-content: space-around;
 
 }
@@ -40,4 +40,41 @@ nav {
 }
 
 
+.dropdown {
+    float: left;
+    overflow: hidden;
+    cursor: pointer;
+}
 
+.dropdown-content {
+    display: block;
+    position:absolute;
+    right:0;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    z-index: 1;
+    float: left;
+  }
+
+.dropdown-content a {
+    font-size: 0.8em;
+    letter-spacing: 0.2ch;
+    float:none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    border-radius: 5px;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+  
+
+// .dropdown:hover .dropdown-content {
+//     display: block;
+// }
