@@ -14,6 +14,8 @@ function App() {
         <Routes>
             <Route path='/' element={<LandingPageComponent/>}/>
             <Route path='/profile' element={<RequireAuth><ProfileComponent/></RequireAuth>}/>
+            <Route path='/account-settings' element={<RequireAuth><h2>Account settings</h2></RequireAuth>}/>
+
         </Routes>
       
     </div>
