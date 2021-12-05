@@ -6,6 +6,7 @@ import {AboutMe, Feedback, HowItWorks} from './ModalContent/ModalContent'
 import VegBurger from '../UI/Burger'
 import useComponentVisible from '../../utils/outsideClick'
 import AuthContext from '../../contextManager/AuthContextManager'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
 
@@ -17,7 +18,7 @@ const Header = () => {
         setModalToShow(null)
     }
 
-    const showModalFn = (modalName) => {
+    const showModalFn = () => {
         switch (modalToShow) {
             case "how-it-works":
                 return <Modal closeModalFn={closeModalFn}><HowItWorks></HowItWorks></Modal>
@@ -51,28 +52,36 @@ const Header = () => {
             <ul className="nav-ul" onClick={getClickedField}>
                 <li className="nav-list"><p id="how-it-works">HOW IT WORKS</p></li>
                 <li className="nav-list"><p id="feedback">FEEDBACK</p></li>
-                <li className="nav-list"><p id="about-me">ABOUT ME</p></li>
-                <li className="nav-list"><p id="collections">MY COLLECTIONS</p></li>
-                <li className="nav-list"><p id="statistics">STATISTICS</p></li>
-                <li className="nav-list" style={{float:'right'}}>
-                    <p>
-                        <div className="dropdown" ref={ref} onClick={clickDropdownHandler}>
-                            <VegBurger>
-                                {
-                                    (isDropdownVisible) ?
-                                    <div class="dropdown-content" >
-                                        <a href="#">Account Settings</a>
-                                        <a onClick={logout}>Logout  <i style={{"font-size":"15px"}} class="fa">&#xf08b;</i></a>
-                                    </div> :
-                                    <React.Fragment></React.Fragment>
-                                }
-                            </VegBurger>
-                        </div>
-                    </p>
-                </li>
+                <li className="nav-list"><p id="about-me">ABOUT THE DEVELOPER</p></li>
+
+                {
+                    (authCtx.isLoggedIn)?
+                    <React.Fragment>
+                        <li className="nav-list"><p id="collections">MY COLLECTIONS</p></li>
+                        <li className="nav-list"><p id="statistics">STATISTICS</p></li>
+                        <li className="nav-list" style={{float:'right'}}>
+                            <p>
+                                <div className="dropdown" ref={ref} onClick={clickDropdownHandler}>
+                                    <VegBurger>
+                                        {
+                                            (isDropdownVisible) ?
+                                            <div className="dropdown-content" >
+                                                <Link to="/account-settings">Account Settings</Link>
+                                                <a onClick={logout}>Logout  <i style={{"font-size":"15px"}} className="fa">&#xf08b;</i></a>
+                                            </div> :
+                                            <React.Fragment></React.Fragment>
+                                        }
+                                    </VegBurger>
+                                </div>
+                            </p>
+                        </li>
+                    </React.Fragment>:
+                    <React.Fragment></React.Fragment>
+                }
+
             </ul>
                 {   
-                    showModalFn(null)
+                    showModalFn()
                 }
                    
                     

@@ -1,9 +1,8 @@
-import React, {useState, useRef} from 'react'
+import React, { useState } from 'react'
 import './auth.scss'
 import LoginComponent from './Login/LoginComponent'
 import RegisterComponent from './Register/RegisterComponent'
 import Card from '../../UI/Card'
-import {TransitionGroup, CSSTransition} from 'react-transition-group';
 
 const AuthComponent = () => {
 
@@ -23,7 +22,7 @@ const AuthComponent = () => {
         }
     }
     return(
-        <div class="auth-card">
+        <div className="auth-card">
             <Card>
                 {
                     (currentMode === 'login') ?    

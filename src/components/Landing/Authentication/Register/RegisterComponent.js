@@ -2,11 +2,13 @@ import React, { useContext, useState } from 'react'
 import '../auth.scss'
 import AuthContext from '../../../../contextManager/AuthContextManager'
 import { urlFormat } from '../../../../utils/urlFormat'
+import { useNavigate } from 'react-router-dom'
 
 const RegisterComponent = () => {
     const [errorMsg, setErrorMsg] = useState(null)
     const [borderClass, setBorderClass] = useState("auth-form-border")
     const authCtx = useContext(AuthContext)
+    const navigate = useNavigate()
 
     const registerSubmitHandler = (event) => {
         event.preventDefault()
@@ -42,7 +44,8 @@ const RegisterComponent = () => {
             .then((data)=>{
                 if(data) {
                     const token = data.token
-                    authCtx.loginHandler(token)
+                    authCtx.loginHandler(token,email)
+                    navigate('/profile')
                 }
             })
             .catch((networkErr)=>{
@@ -64,7 +67,7 @@ const RegisterComponent = () => {
                 <label for="register-user-email" style={{'padding-top':'13px'}}>
                     &nbsp;EMAIL
                 </label>
-                <input id="register-user-email" class="auth-form-content" type="email" name="email" required />
+                <input id="register-user-email" className="auth-form-content" type="email" name="email" required />
                 <div className={borderClass}></div>
                 <label for="register-user-password" style={{'padding-top':'13px'}}>&nbsp;PASSWORD
                 </label>
