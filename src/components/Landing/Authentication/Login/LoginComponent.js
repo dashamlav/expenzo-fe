@@ -2,12 +2,14 @@ import React, { useContext, useState } from 'react'
 import '../auth.scss'
 import AuthContext from '../../../../contextManager/AuthContextManager'
 import { urlFormat } from '../../../../utils/urlFormat'
+import { useNavigate } from 'react-router-dom'
 
 const LoginComponent = () => {
 
     const [errorMsg, setErrorMsg] = useState(null)
     const [borderClass, setBorderClass] = useState("auth-form-border")
     const authCtx = useContext(AuthContext)
+    const navigate = useNavigate()
 
     const loginSubmitHandler = (event) => {
         event.preventDefault()
@@ -37,6 +39,7 @@ const LoginComponent = () => {
                 if(data) {
                     const token = data.token
                     authCtx.loginHandler(token, email)
+                    navigate('/profile')
                 }
             })
             .catch((networkErr)=>{

@@ -11,7 +11,7 @@ const AuthContext = React.createContext({
 
 export const AuthContextProvider = (props) => {
 
-    const [cookies, setCookie, deleteCookie] = useCookies(['auth_token', 'logged_in'])
+    const [cookies, setCookie, deleteCookie] = useCookies(['auth_token', 'logged_in', 'user_email'])
     const initialToken = cookies['auth_token'] ? cookies['auth_token'] : null
     const initialEmail = cookies['user_email'] ? cookies['user_email'] : null
     const [token, setToken] = useState(initialToken)

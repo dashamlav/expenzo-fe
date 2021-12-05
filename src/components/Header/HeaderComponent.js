@@ -17,7 +17,7 @@ const Header = () => {
         setModalToShow(null)
     }
 
-    const showModalFn = (modalName) => {
+    const showModalFn = () => {
         switch (modalToShow) {
             case "how-it-works":
                 return <Modal closeModalFn={closeModalFn}><HowItWorks></HowItWorks></Modal>
@@ -72,7 +72,7 @@ const Header = () => {
                 </li>
             </ul>
                 {   
-                    showModalFn(null)
+                    showModalFn()
                 }
                    
                     
