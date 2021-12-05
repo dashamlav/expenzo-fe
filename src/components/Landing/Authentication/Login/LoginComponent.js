@@ -36,7 +36,7 @@ const LoginComponent = () => {
             .then((data)=>{
                 if(data) {
                     const token = data.token
-                    authCtx.loginHandler(token)
+                    authCtx.loginHandler(token, email)
                 }
             })
             .catch((networkErr)=>{
@@ -52,7 +52,7 @@ const LoginComponent = () => {
                 <h2>LOGIN</h2>
                 <div className="underline-title"></div>
             </div>
-            <form class="auth-form" onSubmit={loginSubmitHandler}>
+            <form className="auth-form" onSubmit={loginSubmitHandler}>
                 <label for="login-user-email" style={{'padding-top':'13px'}}>
                     &nbsp;EMAIL
                 </label>

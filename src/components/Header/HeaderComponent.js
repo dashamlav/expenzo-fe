@@ -60,9 +60,9 @@ const Header = () => {
                             <VegBurger>
                                 {
                                     (isDropdownVisible) ?
-                                    <div class="dropdown-content" >
+                                    <div className="dropdown-content" >
                                         <a href="#">Account Settings</a>
-                                        <a onClick={logout}>Logout  <i style={{"font-size":"15px"}} class="fa">&#xf08b;</i></a>
+                                        <a onClick={logout}>Logout  <i style={{"font-size":"15px"}} className="fa">&#xf08b;</i></a>
                                     </div> :
                                     <React.Fragment></React.Fragment>
                                 }

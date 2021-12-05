@@ -42,7 +42,7 @@ const RegisterComponent = () => {
             .then((data)=>{
                 if(data) {
                     const token = data.token
-                    authCtx.loginHandler(token)
+                    authCtx.loginHandler(token,email)
                 }
             })
             .catch((networkErr)=>{
@@ -64,7 +64,7 @@ const RegisterComponent = () => {
                 <label for="register-user-email" style={{'padding-top':'13px'}}>
                     &nbsp;EMAIL
                 </label>
-                <input id="register-user-email" class="auth-form-content" type="email" name="email" required />
+                <input id="register-user-email" className="auth-form-content" type="email" name="email" required />
                 <div className={borderClass}></div>
                 <label for="register-user-password" style={{'padding-top':'13px'}}>&nbsp;PASSWORD
                 </label>

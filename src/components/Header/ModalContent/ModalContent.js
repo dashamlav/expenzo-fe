@@ -5,7 +5,7 @@ import GithubLogo from '../../../assets/images/githublogo.svg'
 
 const HowItWorks = () => {
     return (
-        <div class="modal-content">
+        <div className="modal-content">
             <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
     )
@@ -13,25 +13,25 @@ const HowItWorks = () => {
 
 const Feedback = () => {
     return (
-        <div class="modal-content">
+        <div className="modal-content">
             <div id="feedback-card-title">
                 <h2>FEEDBACK</h2>
-                <div class="feedback-underline-title"></div>
+                <div className="feedback-underline-title"></div>
             </div>
-            <form class="feedback-form">
+            <form className="feedback-form">
                 <label for="feedback-user-name" className="feedback-label">
                     &nbsp;NAME
                 </label>
                 <input id="feedback-user-name" className="feedback-form-content" type="text" name="name" required />
-                <div class="feedback-form-border"></div>
+                <div className="feedback-form-border"></div>
                 <label for="feedback-user-email" className="feedback-label">&nbsp;EMAIL
                 </label>
                 <input id="feedback-user-email" className="feedback-form-content" type="email" name="email" required />
-                <div class="feedback-form-border"></div>
+                <div className="feedback-form-border"></div>
                 <label for="feedback-text" className="feedback-label">&nbsp;MESSAGE
                 </label>
                 <textarea id="feedback-text" className="feedback-form-content" name="text" required />
-                <div class="feedback-form-border"></div>
+                <div className="feedback-form-border"></div>
                 <input id="feedback-submit-btn" type="submit" name="submit" value="SUBMIT" />
             </form>
         </div>

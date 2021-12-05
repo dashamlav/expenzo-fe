@@ -23,7 +23,7 @@ const AuthComponent = () => {
         }
     }
     return(
-        <div class="auth-card">
+        <div className="auth-card">
             <Card>
                 {
                     (currentMode === 'login') ?    
