@@ -1,7 +1,7 @@
 
 .intro-text {
     position: absolute;
-    top: 40%;
+    top: 35%;
     left: 5%;
     width: 60%;
     float: left;
@@ -11,6 +11,11 @@
     font-style:normal;
     font-size: 40px;
     font-family:'Menlo';
+    padding: 20px 5px 5px 5px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 25px 25px rgba(0, 0, 0, 0.1);
 }
 
 .sub-intro-text {
