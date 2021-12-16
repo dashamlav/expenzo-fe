@@ -20,9 +20,9 @@ const ExpenseCard = styled.div`
     box-shadow: 5px 5px 5px #aaaaaa;
     background: whitesmoke;
 
-&: hover {
-  background: #aaaaaa;
-}
+    &: hover {
+    background: #aaaaaa;
+    }
 `
 
 const ExpenseCardLiteComponent = (props) => {

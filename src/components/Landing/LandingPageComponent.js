@@ -3,6 +3,7 @@ import IntroComponent from './Intro/IntroComponent'
 import AuthComponent from '../Landing/Authentication/AuthComponent'
 import AuthContext from '../../contextManager/AuthContextManager'
 import { Navigate } from 'react-router-dom'
+import './landing.scss'
 
 const LandingPageComponent = () => {
 
