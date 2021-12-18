@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import Card from '../../UI/Card'
 import './expenses.scss'
+import Tshirt from '../../../assets/images/shirt-solid.svg'
+import MoneyIcon from '../../../assets/images/money-bill.svg'
 
 
 const ExpenseCardComponent = () => {
@@ -8,13 +10,13 @@ const ExpenseCardComponent = () => {
     const [imageExpanded, setImageExpanded] = useState('')
     const singleData = {
         "id": 2,
-        "title": "Watch",
+        "title": "Titan Watch",
         "amount": 1000,
         "date": "2021-12-05",
         "currency": "inr",
-        "category": "fash",
-        "description": "Fastrack Watch",
-        "receiptImage": "https://support.avaza.com/wp-content/uploads/2019/03/ExpenseReceipt-1-1.jpg",
+        "category": "Fashion",
+        "description": "Light Leathers Watch with Blue Dial & Brown Leather Strap",
+        "receiptImage": "http://68.media.tumblr.com/fc269dac2bf4a6b0614eb4bc63b0b0e4/tumblr_inline_oiw9qqCG6u1ucyvkf_540.png",
         "transactionType": "cash",
         "isActive": true,
         "createdAt": "2021-12-05T14:52:44.631005Z",
@@ -22,27 +24,72 @@ const ExpenseCardComponent = () => {
         "appUser": 2
     }
 
-    const expandImage = () => {
-        if (imageExpanded) setImageExpanded('')
-        else setImageExpanded('expanded')
-      
-
-    }
-
     return (
-        <div class="expense-expand-container">
-            <Card>
-                <div className={`expense-img-container ${imageExpanded}`}>
-                    <img className="expense-img" src={singleData.receiptImage} onClick={expandImage}></img>
+        
+            
+            <div class="expense-expand-container">
+                <div className="ee-title">
+                    <p style={{ margin: "unset"}}>{singleData.title} </p>
                 </div>
-                <p className="ee-title"> {singleData.title} </p>
-                <p className="ee-title"> {singleData.amount} </p>
-                <p className="ee-title"> {singleData.date} </p>
-                <p className="ee-title"> {singleData.category} </p>
-                <p className="ee-title"> {singleData.description} </p>
-                <p className="ee-title"> {singleData.transactionType} </p>
-            </Card>
-        </div>
+                <div className="expense-expand-inner-container">
+                    <span style={{width:"100%", display: "inline-block"}}>
+                        <div className="ee-amount">
+                            <p style={{ margin: "unset"}}> ₹ {singleData.amount} </p>
+                        </div>
+                    </span>
+
+
+                    <div className="ee-info">
+                        <div className="expense-field">
+                            <p style={{ margin: "unset", width:"fit-content"}}> Date</p>
+                        </div>
+                        <div className="expense-value">
+                            <p style={{ margin: "unset"}}> December 5, 2021</p>
+                        </div>
+                    </div>
+
+
+                    <div className="ee-info">
+                        <div className="expense-field">
+                            <p style={{ margin: "unset", width:"fit-content"}}> Category</p>
+                        </div>
+                        <div className="expense-value">
+                            <p style={{ margin: "unset"}}> Fashion  <img id="li-logo" style= {{width:"20px"}} src={Tshirt} className="App-logo" alt="linkedin" /> </p> 
+                        </div>
+                    </div>
+
+
+                    <div className="ee-info">
+                        <div className="expense-field">
+                            <p style={{ margin: "unset", width:"fit-content"}}> Payment Type</p>
+                        </div>
+                        <div className="expense-value">
+                            <p style={{ margin: "unset"}}> Cash  <img id="li-logo" style= {{width:"20px"}} src={MoneyIcon} className="App-logo" alt="linkedin" /></p>
+                        </div>
+                    </div>
+
+                    <div className="ee-info">
+                        <div className="expense-field">
+                            <p style={{ margin: "unset", width:"fit-content"}}> Description</p>
+                        </div>
+                        <div className="expense-value">
+                            <p style={{ margin: "unset", textAlign:"justify", paddingRight: "10px"}}> {singleData.description} </p>
+                        </div>
+                    </div>
+
+                    <div className="ee-info">
+                        <div className="expense-field">
+                            <p style={{ margin: "unset", width:"fit-content"}}> Image</p>
+                        </div>
+                        <div className="expense-value">
+                            <p style={{ margin: "unset", textAlign:"justify", paddingRight: "10px"}}> No image </p>
+                        </div>
+                    </div>
+                    
+                   
+                </div>
+            </div>
+        
     )
 }
 

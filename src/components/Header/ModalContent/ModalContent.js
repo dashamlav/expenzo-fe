@@ -15,7 +15,7 @@ const Feedback = () => {
     return (
         <div className="modal-content">
             <div id="feedback-card-title">
-                <h2>FEEDBACK</h2>
+                <h2 className="modal-title">FEEDBACK</h2>
                 <div className="feedback-underline-title"></div>
             </div>
             <form className="feedback-form">
