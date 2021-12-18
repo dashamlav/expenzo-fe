@@ -52,7 +52,7 @@ const Header = () => {
             <ul className="nav-ul" onClick={getClickedField}>
                 <li className="nav-list"><p id="how-it-works">HOW IT WORKS</p></li>
                 <li className="nav-list"><p id="feedback">FEEDBACK</p></li>
-                <li className="nav-list"><p id="about-me">ABOUT THE DEVELOPER</p></li>
+                <li className="nav-list"><p id="about-me">ABOUT ME</p></li>
 
                 {
                     (authCtx.isLoggedIn)?
