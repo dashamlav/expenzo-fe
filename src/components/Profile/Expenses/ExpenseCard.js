@@ -12,13 +12,12 @@ const ExpenseCard = styled.div`
     padding: 10px 10px 10px 10px;
     margin: 7px auto;
     overflow: hidden;
-    background: white;
     justify-content: center;
     align-items: center;
     transition: 0.5s;
     border: 0.5px solid #aaaaaa;
-    box-shadow: 5px 5px 5px #aaaaaa;
-    background: whitesmoke;
+    box-shadow: 2px 2px 2px #aaaaaa;
+    background: white;
 
     &: hover {
     background: #aaaaaa;

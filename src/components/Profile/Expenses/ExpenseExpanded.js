@@ -3,6 +3,7 @@ import Card from '../../UI/Card'
 import './expenses.scss'
 import Tshirt from '../../../assets/images/shirt-solid.svg'
 import MoneyIcon from '../../../assets/images/money-bill.svg'
+import ExpenseKeyValue from './ExpenseKeyValue'
 
 
 const ExpenseCardComponent = () => {
@@ -38,55 +39,11 @@ const ExpenseCardComponent = () => {
                         </div>
                     </span>
 
-
-                    <div className="ee-info">
-                        <div className="expense-field">
-                            <p style={{ margin: "unset", width:"fit-content"}}> Date</p>
-                        </div>
-                        <div className="expense-value">
-                            <p style={{ margin: "unset"}}> December 5, 2021</p>
-                        </div>
-                    </div>
-
-
-                    <div className="ee-info">
-                        <div className="expense-field">
-                            <p style={{ margin: "unset", width:"fit-content"}}> Category</p>
-                        </div>
-                        <div className="expense-value">
-                            <p style={{ margin: "unset"}}> Fashion  <img id="li-logo" style= {{width:"20px"}} src={Tshirt} className="App-logo" alt="linkedin" /> </p> 
-                        </div>
-                    </div>
-
-
-                    <div className="ee-info">
-                        <div className="expense-field">
-                            <p style={{ margin: "unset", width:"fit-content"}}> Payment Type</p>
-                        </div>
-                        <div className="expense-value">
-                            <p style={{ margin: "unset"}}> Cash  <img id="li-logo" style= {{width:"20px"}} src={MoneyIcon} className="App-logo" alt="linkedin" /></p>
-                        </div>
-                    </div>
-
-                    <div className="ee-info">
-                        <div className="expense-field">
-                            <p style={{ margin: "unset", width:"fit-content"}}> Description</p>
-                        </div>
-                        <div className="expense-value">
-                            <p style={{ margin: "unset", textAlign:"justify", paddingRight: "10px"}}> {singleData.description} </p>
-                        </div>
-                    </div>
-
-                    <div className="ee-info">
-                        <div className="expense-field">
-                            <p style={{ margin: "unset", width:"fit-content"}}> Image</p>
-                        </div>
-                        <div className="expense-value">
-                            <p style={{ margin: "unset", textAlign:"justify", paddingRight: "10px"}}> No image </p>
-                        </div>
-                    </div>
-                    
-                   
+                    <ExpenseKeyValue keyname="Date" val={singleData.date} />
+                    <ExpenseKeyValue keyname="Category" val={singleData.category} />
+                    <ExpenseKeyValue keyname="Payment Type" val={singleData.transactionType} />
+                    <ExpenseKeyValue keyname="Description" val={singleData.description} />
+                    <ExpenseKeyValue keyname="Image" val={singleData.receiptImage} />
                 </div>
             </div>
         
