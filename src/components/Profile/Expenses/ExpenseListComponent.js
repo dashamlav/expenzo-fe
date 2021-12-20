@@ -3,7 +3,7 @@ import ExpenseCardLiteComponent from './ExpenseCard'
 import './expenses.scss'
 
 
-const ExpenseListComponent = () => {
+const ExpenseListComponent = (props) => {
 
     const data = [
         {
@@ -141,17 +141,22 @@ const ExpenseListComponent = () => {
         "updatedAt": "2021-12-05T15:05:07.748430Z",
         "appUser": 2
     }
-    ]
-
-    
-    
+    ]    
 
     return(
         <div className="expense-list-wrapper">
           {
             data.map((singleExpense)=>{
               return (
-                <ExpenseCardLiteComponent title={singleExpense.title} amount={singleExpense.amount} date={singleExpense.date}  />
+                    <ExpenseCardLiteComponent
+                    key={singleExpense.id} 
+                    title={singleExpense.title} 
+                    amount={singleExpense.amount}
+                    date={singleExpense.date}
+                    onClick= { () => {
+                        props.onClickExpenseCard(singleExpense)
+                    }}
+                    />
               )
             })
           }
