@@ -1,7 +1,8 @@
 .auth-card {
     position: absolute;
     float: right;
-    top: 20%;
+    top: 50%;
+    transform: translateY(-50%);
     right: 7%;
     width: 25%;
     overflow: auto;

@@ -8,19 +8,19 @@ const ExpenseCard = styled.div`
     cursor: pointer;
     height: 70px;
     width: 80%;
-    border-radius: 7px;
+    border-radius: 5px;
     padding: 10px 10px 10px 10px;
     margin: 7px auto;
     overflow: hidden;
     justify-content: center;
     align-items: center;
     transition: 0.5s;
-    border: 0.5px solid #aaaaaa;
-    box-shadow: 2px 2px 2px #aaaaaa;
     background: white;
+    border: 2px solid #23395d;
+    font-family:Futura;
 
-    &: hover {
-    background: #aaaaaa;
+    &:hover {
+        background: #aaaaaa;
     }
 `
 
@@ -33,7 +33,7 @@ const ExpenseCardLiteComponent = (props) => {
     }
 
     return(
-        <ExpenseCard>
+        <ExpenseCard onClick={props.onClick}>
             <p className="expense-title">{props.title}</p>
             <p className="expense-amount">₹ {props.amount}</p>
             <p className="expense-date">{formatDate(props.date)}</p>
