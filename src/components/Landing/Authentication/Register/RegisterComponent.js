@@ -50,7 +50,6 @@ const RegisterComponent = () => {
             })
             .catch((networkErr)=>{
                 setErrorMsg("Network error")
-                console.log(networkErr)
             })
     }
     return (

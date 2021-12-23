@@ -15,6 +15,7 @@ const ModalContainer = styled.div`
     margin:auto;
     background-color: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(5px);
+    border-radius:5px;
 `
 const ModalCard = styled.div`
     position: absolute;
