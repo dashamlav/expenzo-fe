@@ -44,7 +44,6 @@ const LoginComponent = () => {
             })
             .catch((networkErr)=>{
                 setErrorMsg("Network error")
-                console.log(networkErr)
             })
        
     }

@@ -10,7 +10,7 @@ const ExpenseCard = styled.div`
     height: 70px;
     width: 80%;
     border-radius: 5px;
-    padding: 10px 10px 10px 10px;
+    padding: 5px 10px 5px 10px;
     margin: 7px auto;
     overflow: hidden;
     justify-content: center;
@@ -42,9 +42,13 @@ const ExpenseCardLiteComponent = (props) => {
                     setIsActive(true)
                     props.onClick()
                 }} >
-            <p className="expense-title">{props.title}</p>
-            <p className="expense-amount">₹ {props.amount}</p>
-            <p className="expense-date">{formatDate(props.date)}</p>
+            <div className="expense-title-container">
+                <p className="expense-title">{props.title}</p>
+            </div>
+            <div className="expense-details-container">
+                <p className="expense-date">{formatDate(props.date)}</p>
+                <p className="expense-amount">₹ {props.amount}</p>
+            </div>
         </ExpenseCard>
     )
 }

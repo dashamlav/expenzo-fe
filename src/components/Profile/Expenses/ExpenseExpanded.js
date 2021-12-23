@@ -1,17 +1,13 @@
 import React, { useState } from 'react'
 import './expenses.scss'
 import ExpenseKeyValue from './ExpenseKeyValue'
-
+import Modal from '../../UI/Modal'
 
 const ExpenseExpandedComponent = (props) => {
-
-    const [imageExpanded, setImageExpanded] = useState('')
 
     const singleData = props.singleExpenseData
 
     return (
-        
-            
             <div class="expense-expand-container">
                 <div className="ee-title">
                     <p style={{ margin: "unset"}}>{singleData.title} </p>
@@ -27,7 +23,15 @@ const ExpenseExpandedComponent = (props) => {
                     <ExpenseKeyValue keyname="Category" val={singleData.category} />
                     <ExpenseKeyValue keyname="Payment Type" val={singleData.transactionType} />
                     <ExpenseKeyValue keyname="Description" val={singleData.description} />
-                    <ExpenseKeyValue keyname="Image" val={singleData.receiptImage} />
+                    <ExpenseKeyValue 
+                        keyname="Image" 
+                        val={singleData.receiptImage? "Click to open image": "No image"} 
+                        isImage={true} 
+                        onClick={
+                        ()=>{
+                            props.onClickExpandImage(singleData.receiptImage)
+                        }
+                    }/>
                 </div>
             </div>
         

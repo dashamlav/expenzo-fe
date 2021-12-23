@@ -1,4 +1,5 @@
 .expense-list-wrapper {
+    position: relative;
     height: 48rem;
     border-radius: 5px;
     padding: 10px 10px 20px 10px;
@@ -6,42 +7,65 @@
     margin: 10px 10px 10px 10px;
 }
 
-.expense-title {
+.expense-title-container {
     position: absolute;
-    top: 2px;
+    top: 0;
+    left: 5px;
+    display: inline;
+    width:90%;
+    height: max-content;
+    max-height: 20px;
+    padding: 5px 5px 5px 5px;
+    
+}
+
+.expense-details-container {
+    position: absolute;
+    bottom:0;
+    display: inline;
+    width:95%;
+    height:20px;
+    padding: 5px 5px 5px 5px;
+    left: 5px;
+}
+.expense-title {
+    margin: unset;
+    text-align: left;
     font-weight: bolder;
     color: #23395d;
+    overflow: hidden;
 }
 
 .expense-amount {
-    position: absolute;
-    right: 15px;
+    margin: unset;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    float: right;
+    font-weight: bold;
     color: darkgreen;
 }
 
 .expense-date {
-    position: absolute;
-    bottom: 2px;
+    margin: unset;
     float:left;
 }
 
 .expense-expand-container {
-    position: relative;
+    position: absolute;
     min-height: 25em;
     height: max-content;
     width: 100%;
     top: 50%;
-    transform: translateY(25%);
+    transform: translateY(20%);
 }
 
 .expense-expand-inner-container {
-    border-top: 2px solid black;
-    border-right: 2px solid black;
-    border-bottom: 8px solid #23395d;
-    border-radius: 2px;
+    border-top: 2px solid #23395d;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
     overflow-x: hidden;
     overflow-y: scroll;
-    // box-shadow: 5px 5px 5px #aaaaaa;
+    box-shadow: 5px 5px 5px #aaaaaa;
     position: relative;
     height: 25em;
     width: 99%;

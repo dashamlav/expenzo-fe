@@ -26,7 +26,6 @@ const ExpenseListComponent = (props) => {
             .then((res)=>res.json())
             .then((res)=>{
                 setExpenseData(res.results)
-                console.log(res.results)
             })
     }, [authCtx])
 
