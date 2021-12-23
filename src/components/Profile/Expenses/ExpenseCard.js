@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import './expenses.scss'
 import useComponentVisible from '../../../utils/outsideClick'
+import formatDate from '../../../utils/dateFormat'
 
 const ExpenseCard = styled.div`
     position: relative;
@@ -29,12 +30,6 @@ const ExpenseCard = styled.div`
 const ExpenseCardLiteComponent = (props) => {
     
     const [ref, isActive, setIsActive] = useComponentVisible(false)
-
-    const formatDate = (datestring) => {
-        const date = new Date(datestring)
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return date.toLocaleDateString('en-US', options)
-    }
 
     return(
             <ExpenseCard isActive={isActive} ref={ref} onClick={
