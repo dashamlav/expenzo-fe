@@ -11,8 +11,7 @@ const ExpenseKeyValue = (props) => {
                 <p 
                     style={{ margin: "unset", 
                             cursor: (props.keyname==='IMAGE')?"pointer":"", 
-                            textDecoration: (props.keyname==='Image')?"underline":"",
-                            // width:"max-content"
+                            textDecoration: (props.keyname==='IMAGE')?"underline":"",
                             }}
                             > 
                     {props.val} 

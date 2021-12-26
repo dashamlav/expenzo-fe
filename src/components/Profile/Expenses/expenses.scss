@@ -123,7 +123,7 @@
     border-radius: 0px 5em 5em 0px;
     background-color: #23395d;
     color: white;
-    height: 29px;
+    height: 25px;
 }
 
 .expense-value {
@@ -137,7 +137,7 @@
 
 .expense-form-content {
     font-family: 'Poppins';
-    border: 1px solid black;
+    border: 1px solid #23395d;
     outline: none;
     height: 20pt;
     font-size: 15px;
@@ -159,7 +159,7 @@
 #expense-description-textarea {
     height: 50px;
     width: 15vw;
-    border: 1px solid black;
+    border: 1px solid #23395d;
     float: left;
     padding: 5px 5px 5px 5px;
     text-align: left;
@@ -197,8 +197,15 @@
 }
 
 .discard {
-    color:palevioletred;
-    border: 2px solid palevioletred;
-    border-bottom:5px solid palevioletred;
+    color:#D03D56;
+    border: 2px solid #D03D56;
+    border-bottom:5px solid #D03D56;
+}
 
+.expense-error-text {
+    color: #D03D56;
+    font-size: 1em;
+    margin-top: 3px;
+    text-align: right;
+    padding-top: 5px;
 }
