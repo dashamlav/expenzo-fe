@@ -9,7 +9,7 @@ const ExpenseListComponent = (props) => {
 
     const [expenseData, setExpenseData] = useState([])
     const authCtx = useContext(AuthContext)
-
+    console.log(expenseData)
     useEffect(() => {
 
         const expenseListApiUrl = urlFormat('expenses/get-expenses')

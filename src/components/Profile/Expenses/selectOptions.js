@@ -1,38 +1,38 @@
 import './expenses.scss'
 
-const CategorySelect = () => {
+const CategorySelect = (props) => {
 
     return(
-        <select className="expense-form-content" name="expense-category-select">
-            <option value="BANKING">BANKING</option>
-            <option value="BOOKS">BOOKS</option>
-            <option value="CLOTHING">CLOTHING</option>
-            <option value="EDUCATION">EDUCATION</option>
-            <option value="ENTERTAINMENT">ENTERTAINMENT</option>
-            <option value="ELECTRONICS">ELECTRONICS</option>
-            <option value="FASHION">FASHION</option>
-            <option value="FOOD">FOOD</option>
-            <option value="GIFT">GIFT</option>
-            <option value="GROCERY">GROCERY</option>
-            <option value="HOUSEHOLD">HOUSEHOLD</option>
-            <option value="JEWELRY">JEWELRY</option>
-            <option value="MISCELLANEOUS">MISCELLANEOUS</option>
-            <option value="MEDICAL">MEDICAL</option>
-            <option value="OTHER" selected="selected">OTHER</option>
-            <option value="TRAVEL">TRAVEL</option>
+        <select className="expense-form-content" name="category" defaultValue={props.defaultValue}>
+            <option value="bank">BANKING</option>
+            <option value="book">BOOKS</option>
+            <option value="clo">CLOTHING</option>
+            <option value="edu">EDUCATION</option>
+            <option value="ent">ENTERTAINMENT</option>
+            <option value="elec">ELECTRONICS</option>
+            <option value="fash">FASHION</option>
+            <option value="food">FOOD</option>
+            <option value="gift">GIFT</option>
+            <option value="gro">GROCERY</option>
+            <option value="hh">HOUSEHOLD</option>
+            <option value="jew">JEWELRY</option>
+            <option value="misc">MISCELLANEOUS</option>
+            <option value="med">MEDICAL</option>
+            <option value="oth">OTHER</option>
+            <option value="tra">TRAVEL</option>
         </select>
     )
 }
 
-const PaymentModeSelect = () => {
+const PaymentModeSelect = (props) => {
 
     return(
-        <select className="expense-form-content" name="expense-paymentmode-select">
-            <option value="CASH" selected="selected">CASH</option>
-            <option value="CREDIT_CARD">CREDIT_CARD</option>
-            <option value="DEBIT_CARD">DEBIT_CARD</option>
-            <option value="NET_BANKING">NET_BANKING</option>
-            <option value="UPI">UPI</option>
+        <select className="expense-form-content" name="paymentmode" defaultValue={props.defaultValue}>
+            <option value="cash">CASH</option>
+            <option value="cc">CREDIT CARD</option>
+            <option value="dc">DEBIT CARD</option>
+            <option value="netb">NET BANKING</option>
+            <option value="upi">UPI</option>
         </select>
     )
 }

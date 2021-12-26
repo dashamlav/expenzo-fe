@@ -6,48 +6,38 @@ import Modal from '../UI/Modal'
 
 const ProfileComponent = () => {
 
-    const [singleExpense, setSingleExpense] = useState({}) 
+    const [singleExpense, setSingleExpense] = useState(null) 
     const [imageSource, setImageSource] = useState('')
     const [clickedNewExpense, setClickedNewExpense] = useState(false)
-    const [editMode, setEditMode] = useState(false)
-    
-    const clickedExpenseCardLite = (singleExpenseData) => {
-      setEditMode(false)
-      setSingleExpense(singleExpenseData)
-    }
+    const [newMode, setNewMode] = useState(false)
 
-    const closeImageModalFn = () => {
-      setImageSource('')
-    }
-
-    const onClickExpandImage = (imgSource) => {
-      setImageSource(imgSource)
-    }
-
-    const onClickCreateNewExpense = () => {
-      setEditMode(true)
-      setClickedNewExpense(true)
-    }
-    
     return(
       <div className="profile-container">
         <span className="expense-list-span">
-          <ExpenseListComponent onClickExpenseCard={clickedExpenseCardLite}></ExpenseListComponent>
+          <ExpenseListComponent onClickExpenseCard={(singleExpenseData) => {
+            setNewMode(false)
+            setSingleExpense(singleExpenseData)
+          }}>
+          </ExpenseListComponent>
         </span>
         <span className="expense-expanded-span">
-          <button id="add-expense-button" onClick={onClickCreateNewExpense}> +  &nbsp; ADD NEW EXPENSE</button>
+          <button id="add-expense-button" onClick={() =>{
+            setNewMode(true)
+            setClickedNewExpense(true)
+          }}> +  &nbsp; ADD NEW EXPENSE</button>
         {
           (clickedNewExpense || singleExpense) ?
           <ExpenseExpandedComponent 
             singleExpenseData={singleExpense} 
-            onClickExpandImage={onClickExpandImage} 
-            editMode={editMode} />:
+            onClickExpandImage={(imgSource)=>setImageSource(imgSource)} 
+            newMode={newMode}
+            setNewMode={setNewMode} />:
             <React.Fragment></React.Fragment>
         }
         </span>
        {
          (imageSource)?
-          <Modal closeModalFn={closeImageModalFn}>
+          <Modal closeModalFn={() => setImageSource('')}>
               <img src={imageSource} alt="Expense"></img>
           </Modal>:
           <React.Fragment></React.Fragment>
