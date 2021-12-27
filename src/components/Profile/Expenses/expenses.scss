@@ -108,6 +108,7 @@
     text-align: left;
     max-width: 100%;
     width: max-content;
+    min-height: 30px;
     height: max-content;
     color: black;
     font-size: 1em;
@@ -203,9 +204,14 @@
 }
 
 .expense-error-text {
+    position: relative;
     color: #D03D56;
     font-size: 1em;
-    margin-top: 3px;
+    // margin-top: 3px;
     text-align: right;
     padding-top: 5px;
+}
+
+.success-green {
+    color: green;
 }

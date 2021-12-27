@@ -1,22 +1,24 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ExpenseListComponent from './Expenses/ExpenseListComponent'
-import ExpenseExpandedComponent from './Expenses/ExpenseExpanded'
+import ExpenseExpandedComponent from './Expenses/ExpenseExpanded/ExpenseExpanded'
 import './profile.scss'
 import Modal from '../UI/Modal'
+import SingleExpenseContext from '../../contextManager/ExpenseContext'
 
 const ProfileComponent = () => {
 
-    const [singleExpense, setSingleExpense] = useState(null) 
     const [imageSource, setImageSource] = useState('')
     const [clickedNewExpense, setClickedNewExpense] = useState(false)
     const [newMode, setNewMode] = useState(false)
+
+    const expenseCtx = useContext(SingleExpenseContext)
+    const singleExpense = expenseCtx.singleExpense
 
     return(
       <div className="profile-container">
         <span className="expense-list-span">
           <ExpenseListComponent onClickExpenseCard={(singleExpenseData) => {
             setNewMode(false)
-            setSingleExpense(singleExpenseData)
           }}>
           </ExpenseListComponent>
         </span>
@@ -26,9 +28,8 @@ const ProfileComponent = () => {
             setClickedNewExpense(true)
           }}> +  &nbsp; ADD NEW EXPENSE</button>
         {
-          (clickedNewExpense || singleExpense) ?
+          (clickedNewExpense || singleExpense.id) ?
           <ExpenseExpandedComponent 
-            singleExpenseData={singleExpense} 
             onClickExpandImage={(imgSource)=>setImageSource(imgSource)} 
             newMode={newMode}
             setNewMode={setNewMode} />:
