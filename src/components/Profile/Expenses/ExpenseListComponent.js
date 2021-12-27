@@ -3,13 +3,15 @@ import ExpenseCardLiteComponent from './ExpenseCard'
 import './expenses.scss'
 import { urlFormat } from '../../../utils/urlFormat'
 import AuthContext from '../../../contextManager/AuthContextManager'
-
+import SingleExpenseContext from '../../../contextManager/ExpenseContext'
 
 const ExpenseListComponent = (props) => {
 
     const [expenseData, setExpenseData] = useState([])
     const authCtx = useContext(AuthContext)
-    console.log(expenseData)
+    const expenseContext = useContext(SingleExpenseContext)
+
+    // console.log(expenseData)
     useEffect(() => {
 
         const expenseListApiUrl = urlFormat('expenses/get-expenses')
@@ -27,7 +29,7 @@ const ExpenseListComponent = (props) => {
             .then((res)=>{
                 setExpenseData(res.results)
             })
-    }, [authCtx])
+    }, [authCtx, expenseContext.changed])
 
     return(
         <div className="expense-list-wrapper">
@@ -40,7 +42,17 @@ const ExpenseListComponent = (props) => {
                     amount={singleExpense.amount}
                     date={singleExpense.date}
                     onClick= { () => {
-                        props.onClickExpenseCard(singleExpense)
+                        expenseContext.selectedExpenseHandler(
+                          singleExpense.id,
+                          singleExpense.title,
+                          singleExpense.amount,
+                          singleExpense.date,
+                          singleExpense.category,
+                          singleExpense.transactionType,
+                          singleExpense.description,
+                          singleExpense.currency,
+                          singleExpense.receiptImage,
+                        )
                     }}
                     />
               )
