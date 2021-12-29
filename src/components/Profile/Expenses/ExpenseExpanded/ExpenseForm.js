@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useRef, useContext, useEffect } from 'react'
 import ExpenseKeyValue from './ExpenseKeyValue'
 import { urlFormat } from '../../../../utils/urlFormat'
 import AuthContext from '../../../../contextManager/AuthContextManager'
@@ -12,34 +12,52 @@ const ExpenseForm = (props) => {
     const expenseCtx = useContext(SingleExpenseContext)
     const singleData = expenseCtx.singleExpense
 
-    const [title, setTitle] = useState('')
-    const [amount, setAmount] = useState(null)
-    const [date, setDate] = useState(null)
     const [errorMsg, setErrorMsg] = useState(null)
-    const [ok, setOk] = useState(false)
+    const [errorStatus, setErrorStatus] = useState(1000)
     const formElement = useRef(null)
     const authCtx = useContext(AuthContext)
 
     const createExpense = (event) => {
+
         event.preventDefault()
+        
+        let title = event.target.title.value
+        let amount = event.target.amount.value
+        let date = event.target.date.value
         let description = event.target.description.value
         let category = event.target.category.value
         let transactionType = event.target.paymentmode.value
         
         if (!title) {
+            setErrorStatus(1000)
             setErrorMsg('Title is required')
+            setTimeout(()=>{
+                setErrorMsg(null)
+            }, 3000)
             return
         }
         if (!amount) {
+            setErrorStatus(1000)
             setErrorMsg('Amount is required')
+            setTimeout(()=>{
+                setErrorMsg(null)
+            }, 3000)
             return
         }
         if (amount<0) {
+            setErrorStatus(1000)
             setErrorMsg('Amount cannot be negative')
+            setTimeout(()=>{
+                setErrorMsg(null)
+            }, 3000)
             return
         }
         if (!date) {
+            setErrorStatus(1000)
             setErrorMsg('Date is required')
+            setTimeout(()=>{
+                setErrorMsg(null)
+            }, 3000)
             return
         }
 
@@ -62,43 +80,68 @@ const ExpenseForm = (props) => {
         }
 
         fetch(url, requestOptions)
-            .then(res=>res.json())
-            .then((res)=>{
-                console.log(res)
-                formElement.current.reset()
-                setOk(true)
-                setErrorMsg("New record created successfully")
-                expenseCtx.expenseChangedHandler(true)
-                setTimeout(()=>{
-                    setErrorMsg(null)
-                }, 3000)
+            .then(res=>{
+                if(res.status===201){
+                    return res.json()
+                } else {
+                    setErrorStatus(res.status)
+                    setErrorMsg("Something went wrong")
+                    setTimeout(()=>{
+                        setErrorMsg(null)
+                    }, 3000)
+                    return null
+                }
             })
-            .catch(err=>console.log(err))
+            .then((res)=>{
+                if(res) {
+                    formElement.current.reset()
+                    setErrorStatus(201)
+                    setErrorMsg("New record created successfully")
+                    setTimeout(()=>{
+                        setErrorMsg(null)
+                    }, 3000)
+                    expenseCtx.expenseChangedHandler()
+                    const newExpense = {}
+                    newExpense['id'] = res.id
+                    for(let [key,val] of formData.entries()) {
+                        newExpense[key] = val
+                    }
+                    expenseCtx.selectedExpenseHandler(newExpense)
+                }
+                
+            })
+            .catch(err=>setErrorMsg('Network Error'))
 
     }
 
     const updateExpense = (event) => {
         event.preventDefault()
+        let title = event.target.title.value
+        let amount = event.target.amount.value
+        let date = event.target.date.value
         let description = event.target.description.value
         let category = event.target.category.value
         let transactionType = event.target.paymentmode.value
+
         const url = urlFormat('expenses/update-expense')
         const formData = new FormData()
 
         if (title && title !== singleData.title) formData.append('title', title)
-        if (amount && amount !== singleData.amount) formData.append('amount', amount)
+        if (amount && amount != singleData.amount) formData.append('amount', amount)
         if (date && date !== singleData.date) formData.append('date', date)
         if (category && category !== singleData.category) formData.append('category', category)
         if (transactionType && transactionType !== singleData.transactionType) formData.append('transactionType', transactionType)
         if (description && description !== singleData.description) formData.append('description', description)
 
-        if (!formData) {
-            setErrorMsg('No changes detected')
-            setTimeout(()=>{
-                setErrorMsg(null)
-            }, 3000)
-        }
+       if (formData.entries().next().done) {
+           setErrorStatus(350)
+           setErrorMsg('No changes detected')
+           setTimeout(()=>{
+               setErrorMsg(null)
+           }, 3000)
+        return
 
+       }
         formData.append('id', singleData.id)
         const headers = new Headers()
         headers.append('Authorization', `Token ${authCtx.token}`)
@@ -109,45 +152,51 @@ const ExpenseForm = (props) => {
             headers: headers
         }
         fetch(url, requestOptions)
-            .then(res=>res.json())
+            .then(res=>{
+                if(res.status === 200) {
+                    return res.json()
+                } else {
+                    setErrorStatus(res.status)
+                    setErrorMsg("Something went wrong")
+                    setTimeout(()=>{
+                        setErrorMsg(null)
+                    }, 3000)
+                    return null
+                }
+            })
             .then((res)=>{
-                console.log(res)
-                setOk(true)
-                setErrorMsg("Record updated successfully")
-                expenseCtx.expenseChangedHandler(true)
-                let changedExpense = {}
-                // console.log(formData)
-                // formData.forEach((value,key)=>{
-                //     changedExpense[key] = value
-                // })
-                // expenseCtx.selectedExpenseHandler(changedExpense)
-                setTimeout(()=>{
-                    setErrorMsg(null)
-                }, 3000)
+                if(res) {
+                    setErrorStatus(200)
+                    setErrorMsg("Record updated successfully")
+                    setTimeout(()=>{
+                        setErrorMsg(null)
+                    }, 3000)
+                    
+                    const selectedExpense = expenseCtx.singleExpense
+                    for(let [key,val] of formData.entries()) {
+                        selectedExpense[key] = val
+                    }
+                    expenseCtx.selectedExpenseHandler(selectedExpense)
+                    expenseCtx.expenseChangedHandler()
+                }
             })
             .catch(err=>console.log(err))
     }
-
     return(
         <form onSubmit={editMode?updateExpense:createExpense} ref={formElement}>
-            <div className="ee-title">
-                <textarea 
-                    id="expense-title-textarea" 
-                    name="title"
-                    className="expense-form-content" 
-                    placeholder="Enter title here..."
-                    defaultValue= {editMode?singleData.title:""}
-                    onChange = { (event) => {
-                        setTitle(event.target.value)
-                        setErrorMsg(null)
-                    }}
-                    >
-
-                </textarea>
+            <div className="ee-title" key={editMode?`${singleData.title}{Math.random()}`:""}>
+                    <textarea 
+                        id="expense-title-textarea" 
+                        name="title"
+                        className="expense-form-content" 
+                        placeholder="Enter title here..."
+                        defaultValue= {editMode?singleData.title:""}
+                        >
+                    </textarea>
             </div>
             <div className="expense-expand-inner-container">
                 <span style={{width:"100%", display: "inline-block"}}>
-                    <div className="ee-amount">
+                    <div className="ee-amount" key={editMode?`${singleData.amount}{Math.random()}`:""}>
                         <input 
                             type="number"
                             id="expense-amount-input" 
@@ -155,36 +204,28 @@ const ExpenseForm = (props) => {
                             className="expense-form-content" 
                             placeholder="₹..."
                             defaultValue= {editMode?singleData.amount:""}
-                            onChange = { (event) => {
-                                setAmount(event.target.value)
-                                if(title) setErrorMsg(null)
-                            }}
                             >
                                 
                         </input>
                     </div>
                 </span>
 
-                <ExpenseKeyValue keyname="DATE" val={
+                <ExpenseKeyValue keyname={editMode?`${singleData.date}{Math.random()}`:""} fieldname="DATE" val={
                     <input 
                         className="expense-form-content" 
                         type="date"
                         name='date'
                         defaultValue= {editMode?singleData.date:""}
-                        onChange = { (event) => {
-                            setDate(event.target.value)
-                            if(title && amount) setErrorMsg(null)
-                        }}
                         >
                     </input>
                 } />
-                <ExpenseKeyValue keyname="CATEGORY" val={
+                <ExpenseKeyValue keyname={editMode?`${singleData.category}{Math.random()}`:""} fieldname="CATEGORY" val={
                     <CategorySelect defaultValue={editMode?singleData.category:"oth"}></CategorySelect>
                 } />
-                <ExpenseKeyValue keyname="PAYMENT MODE" val={
+                <ExpenseKeyValue keyname={editMode?`${singleData.transactionType}{Math.random()}`:""} fieldname="PAYMENT MODE" val={
                     <PaymentModeSelect defaultValue={editMode?singleData.transactionType:"cash"}></PaymentModeSelect>
                 } />
-                <ExpenseKeyValue keyname="DESCRIPTION" val={
+                <ExpenseKeyValue keyname={editMode?`${singleData.description}{Math.random()}`:""} fieldname="DESCRIPTION" val={
                     <textarea 
                         id="expense-description-textarea" 
                         className="expense-form-content"
@@ -194,7 +235,8 @@ const ExpenseForm = (props) => {
                     </textarea>
                 } />
                 <ExpenseKeyValue 
-                    keyname="IMAGE" 
+                    keyname={editMode?`${singleData.receiptImage}{Math.random()}`:""}
+                    fieldname="IMAGE" 
                     val={
                         <input 
                             id="expense-file-input" 
@@ -211,19 +253,20 @@ const ExpenseForm = (props) => {
             onClick={()=>{
                 props.setEditMode(false)
                 props.setNewMode(false)
-                setTitle('')
-                setAmount(null)
-                setDate(null)
                 setErrorMsg(null)
 
             }}
             >
             DISCARD
         </button>
-        <button type="submit" className="expense-form-submit">SUBMIT</button>
+        <button type="submit" className="expense-form-submit">SAVE</button>
             </div>
         
-        {(errorMsg) && <legend className={`expense-error-text ${(ok) ? 'success-green' : ''}`}>{errorMsg}</legend>}
+        {(errorMsg) 
+        && 
+        <legend 
+            className={`expense-error-text ${(errorStatus<300) ? 'success-green' : errorStatus>=300 && errorStatus<400? 'alert-orange' : ''}`}>{errorMsg}
+        </legend>}
         </form>
     )
 }

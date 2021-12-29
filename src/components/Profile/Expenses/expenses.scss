@@ -204,7 +204,7 @@
 }
 
 .expense-error-text {
-    position: relative;
+    position: absolute;
     color: #D03D56;
     font-size: 1em;
     // margin-top: 3px;
@@ -214,4 +214,8 @@
 
 .success-green {
     color: green;
+}
+
+.alert-orange {
+    color: darkorange;
 }
