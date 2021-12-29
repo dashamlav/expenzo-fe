@@ -42,17 +42,7 @@ const ExpenseListComponent = (props) => {
                     amount={singleExpense.amount}
                     date={singleExpense.date}
                     onClick= { () => {
-                        expenseContext.selectedExpenseHandler(
-                          singleExpense.id,
-                          singleExpense.title,
-                          singleExpense.amount,
-                          singleExpense.date,
-                          singleExpense.category,
-                          singleExpense.transactionType,
-                          singleExpense.description,
-                          singleExpense.currency,
-                          singleExpense.receiptImage,
-                        )
+                        expenseContext.selectedExpenseHandler(singleExpense)
                     }}
                     />
               )

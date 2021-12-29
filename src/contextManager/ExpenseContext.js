@@ -1,12 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { urlFormat } from '../utils/urlFormat'
-import AuthContext from './AuthContextManager'
+import React, { useState} from 'react'
 
 const SingleExpenseContext = React.createContext({
     singleExpense: null,
     changed: false,
-    selectedExpenseHandler: (id, title, amount, date, category, transactionType, description, currency, receiptImage) => {},
-    expenseChangedHandler: (val) => {}
+    selectedExpenseHandler: (selectedExpense) => {},
+    expenseChangedHandler: () => {}
 })
 
 export const ExpenseContextProvider = (props) => {
@@ -25,22 +23,22 @@ export const ExpenseContextProvider = (props) => {
     const [changed, setChanged] = useState(false)
 
 
-    const selectedExpenseHandler = (id, title, amount, date, category, transactionType, description, currency, receiptImage) => {
+    const selectedExpenseHandler = (selectedExpense) => {
         setSelectedExpenseState({
-            id: id,
-            title: title,
-            amount: amount,
-            date : date,
-            category: category,
-            transactionType: transactionType,
-            description: description,
-            currency: currency,
-            receiptImage: receiptImage,
+            id: selectedExpense.id,
+            title: selectedExpense.title,
+            amount: selectedExpense.amount,
+            date :selectedExpense.date,
+            category: selectedExpense.category,
+            transactionType: selectedExpense.transactionType,
+            description: selectedExpense.description,
+            currency: selectedExpense.currency,
+            receiptImage: selectedExpense.receiptImage,
         })
     }
 
-    const expenseChangedHandler = (val) => {
-        setChanged(true)
+    const expenseChangedHandler = () => {
+        setChanged(!changed)
     }
 
     const initialExpenseContext = {

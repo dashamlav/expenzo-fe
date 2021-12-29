@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import ExpenseKeyValue from './ExpenseKeyValue'
 import formatDate from '../../../../utils/dateFormat'
 import { categoryMap, transactionTypeMap } from './expenseUtils'
@@ -6,7 +6,7 @@ import SingleExpenseContext from '../../../../contextManager/ExpenseContext'
 
 const ExpenseDisplay = (props) => {
 
-    const expenseCtx = useContext(SingleExpenseContext)
+    const expenseCtx = useContext(SingleExpenseContext)    
     const singleData = expenseCtx.singleExpense
 
 
@@ -22,12 +22,12 @@ const ExpenseDisplay = (props) => {
                     </div>
                 </span>
 
-                <ExpenseKeyValue keyname="DATE" val={formatDate(singleData.date)} />
-                <ExpenseKeyValue keyname="CATEGORY" val={categoryMap[singleData.category]} />
-                <ExpenseKeyValue keyname="PAYMENT MODE" val={transactionTypeMap[singleData.transactionType]} />
-                <ExpenseKeyValue keyname="DESCRIPTION" val={singleData.description} />
+                <ExpenseKeyValue fieldname="DATE" val={formatDate(singleData.date)} />
+                <ExpenseKeyValue fieldname="CATEGORY" val={categoryMap[singleData.category]} />
+                <ExpenseKeyValue fieldname="PAYMENT MODE" val={transactionTypeMap[singleData.transactionType]} />
+                <ExpenseKeyValue fieldname="DESCRIPTION" val={singleData.description} />
                 <ExpenseKeyValue 
-                    keyname="IMAGE" 
+                    fieldname="IMAGE" 
                     val={singleData.receiptImage? "Click to open image": "No image"} 
                     onClick={
                     ()=>{

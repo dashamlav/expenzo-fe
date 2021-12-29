@@ -17,7 +17,6 @@ const ExpenseExpandedComponent = (props) => {
                 (props.newMode || editMode) ?
                 <ExpenseForm
                     editMode = {editMode}
-                    singleData = {singleData}
                     setEditMode={(val)=>setEditMode(val)}
                     setNewMode={(val)=>props.setNewMode(val)}
                 >
@@ -25,7 +24,6 @@ const ExpenseExpandedComponent = (props) => {
                 : (singleData)?
                 <ExpenseDisplay
                     setEditMode={(val)=>setEditMode(val)}
-                    singleData={singleData}
                     onClickExpandImage={(imgSource)=>props.onClickExpandImage(imgSource)}
                 >
                 </ExpenseDisplay>:
