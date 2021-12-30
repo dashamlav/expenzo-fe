@@ -7,6 +7,7 @@ const SingleExpenseContext = React.createContext({
     expenseChangedHandler: () => {}
 })
 
+
 export const ExpenseContextProvider = (props) => {
 
     const [selectedExpenseState, setSelectedExpenseState] = useState({

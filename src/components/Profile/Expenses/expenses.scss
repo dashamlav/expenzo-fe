@@ -59,7 +59,7 @@
     width: 100%;
     top: 50%;
     transform: translateY(20%);
-    font-family: 'Poppins';
+    font-family: 'Futura';
 }
 
 .expense-expand-inner-container {
@@ -95,8 +95,11 @@
     padding: 5px 5px 5px 5px;
     min-width: 5em;
     width: max-content;
+    width: auto;
     max-width: 30%;
-    height: 2em;
+    min-height: 2em;
+
+    height: auto;
     color: white;
     border-radius: 0px 0px 0px 10px;
     font-size: 1.5em;
@@ -111,7 +114,7 @@
     min-height: 30px;
     height: max-content;
     color: black;
-    font-size: 1em;
+    font-size: 1.1em;
     overflow: visible;
     margin: 10px 10px 10px 0px;
 }
@@ -137,7 +140,7 @@
 }
 
 .expense-form-content {
-    font-family: 'Poppins';
+    font-family: 'Futura';
     border: 1px solid #23395d;
     outline: none;
     height: 20pt;
