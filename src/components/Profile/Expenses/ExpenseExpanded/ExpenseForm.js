@@ -27,7 +27,9 @@ const ExpenseForm = (props) => {
         let description = event.target.description.value
         let category = event.target.category.value
         let transactionType = event.target.paymentmode.value
+        let receiptImage = event.target.image.files[0]
         
+
         if (!title) {
             setErrorStatus(1000)
             setErrorMsg('Title is required')
@@ -69,6 +71,7 @@ const ExpenseForm = (props) => {
         formData.append('category', category)
         formData.append('transactionType', transactionType)
         formData.append('description', description)
+        formData.append('receiptImage', receiptImage)
 
         const headers = new Headers()
         headers.append('Authorization', `Token ${authCtx.token}`)
@@ -122,6 +125,7 @@ const ExpenseForm = (props) => {
         let description = event.target.description.value
         let category = event.target.category.value
         let transactionType = event.target.paymentmode.value
+        let receiptImage = event.target.image.files[0]
 
         const url = urlFormat('expenses/update-expense')
         const formData = new FormData()
@@ -132,6 +136,7 @@ const ExpenseForm = (props) => {
         if (category && category !== singleData.category) formData.append('category', category)
         if (transactionType && transactionType !== singleData.transactionType) formData.append('transactionType', transactionType)
         if (description && description !== singleData.description) formData.append('description', description)
+        if (receiptImage && receiptImage !== singleData.receiptImage) formData.append('receiptImage', receiptImage)
 
        if (formData.entries().next().done) {
            setErrorStatus(350)
@@ -173,9 +178,11 @@ const ExpenseForm = (props) => {
                     }, 3000)
                     
                     const selectedExpense = expenseCtx.singleExpense
+                    
                     for(let [key,val] of formData.entries()) {
                         selectedExpense[key] = val
                     }
+                    selectedExpense['receiptImage'] = res.receiptImage
                     expenseCtx.selectedExpenseHandler(selectedExpense)
                     expenseCtx.expenseChangedHandler()
                 }
@@ -191,6 +198,8 @@ const ExpenseForm = (props) => {
                         className="expense-form-content" 
                         placeholder="Enter title here..."
                         defaultValue= {editMode?singleData.title:""}
+                        maxLength="50"
+                        autoComplete="off"
                         >
                     </textarea>
             </div>
@@ -204,6 +213,7 @@ const ExpenseForm = (props) => {
                             className="expense-form-content" 
                             placeholder="₹..."
                             defaultValue= {editMode?singleData.amount:""}
+                            autoComplete="off"
                             >
                                 
                         </input>
@@ -216,6 +226,7 @@ const ExpenseForm = (props) => {
                         type="date"
                         name='date'
                         defaultValue= {editMode?singleData.date:""}
+                        placeholder="DD/MM/YYYY"
                         >
                     </input>
                 } />
@@ -231,6 +242,7 @@ const ExpenseForm = (props) => {
                         className="expense-form-content"
                         name="description"
                         defaultValue= {editMode?singleData.description:""}
+                        maxLength="1000"
                         >
                     </textarea>
                 } />
@@ -238,13 +250,16 @@ const ExpenseForm = (props) => {
                     keyname={editMode?`${singleData.receiptImage}{Math.random()}`:""}
                     fieldname="IMAGE" 
                     val={
+                            
                         <input 
                             id="expense-file-input" 
                             type="file"
                             name="image"
                             className="expense-form-content"
-                            >
+                            accept=".pdf, .jpg, .png, .jpeg"
+                        >
                         </input>
+                  
                     }
                 />
         <button 
