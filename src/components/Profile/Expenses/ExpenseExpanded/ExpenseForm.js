@@ -4,8 +4,13 @@ import { urlFormat } from '../../../../utils/urlFormat'
 import AuthContext from '../../../../contextManager/AuthContextManager'
 import SingleExpenseContext from '../../../../contextManager/ExpenseContext'
 import { CategorySelect, PaymentModeSelect } from '../selectOptions'
+import Select from 'react-select'
+import { CategoryFilterSelectStyle, FilterAmountSelectStyle } from '../SelectStyles'
 
 const ExpenseForm = (props) => {
+
+    let todaysDate = new Date()
+    todaysDate = todaysDate.toISOString().split('T')[0]
 
     const editMode = props.editMode
 
@@ -27,7 +32,7 @@ const ExpenseForm = (props) => {
         let description = event.target.description.value
         let category = event.target.category.value
         let transactionType = event.target.paymentmode.value
-        let receiptImage = event.target.image.files[0]
+        let receiptImage = event.target.image.files[0] || null
         
 
         if (!title) {
@@ -70,8 +75,8 @@ const ExpenseForm = (props) => {
         formData.append('date', date)
         formData.append('category', category)
         formData.append('transactionType', transactionType)
-        formData.append('description', description)
-        formData.append('receiptImage', receiptImage)
+        if (description) formData.append('description', description)
+        if (receiptImage) formData.append('receiptImage', receiptImage)
 
         const headers = new Headers()
         headers.append('Authorization', `Token ${authCtx.token}`)
@@ -208,9 +213,9 @@ const ExpenseForm = (props) => {
                     <div className="ee-amount" key={editMode?`${singleData.amount}{Math.random()}`:""}>
                         <input 
                             type="number"
-                            id="expense-amount-input" 
+                            id="expense-amount-input"
                             name="amount"
-                            className="expense-form-content" 
+                            className="expense-form-content"
                             placeholder="₹..."
                             defaultValue= {editMode?singleData.amount:""}
                             autoComplete="off"
@@ -225,7 +230,7 @@ const ExpenseForm = (props) => {
                         className="expense-form-content" 
                         type="date"
                         name='date'
-                        defaultValue= {editMode?singleData.date:""}
+                        defaultValue= {editMode?singleData.date:todaysDate}
                         placeholder="DD/MM/YYYY"
                         >
                     </input>

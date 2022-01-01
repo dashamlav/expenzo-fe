@@ -1,9 +1,26 @@
+
+
 .expense-list-wrapper {
     position: relative;
     height: 48rem;
     border-radius: 5px;
-    padding: 10px 10px 20px 10px;
+    padding: 10px 10px 10px 10px;
     overflow:scroll;
+    margin: 10px 10px 10px 10px;
+}
+
+.expense-filters-wrapper {
+    position: relative;
+    height: max-content;
+    // width: max-content;
+    max-width: 100%;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
+}
+
+.expense-filter {
+    padding: 10px 10px 10px 10px;
     margin: 10px 10px 10px 10px;
 }
 
@@ -222,3 +239,62 @@
 .alert-orange {
     color: darkorange;
 }
+
+.filters-form {
+    // align-items: left;
+    // position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-single {
+    position: relative;
+    // top:0;
+    height: max-content;
+    overflow:visible;
+    margin-top: 10px;
+}
+
+.filter-name {
+    display: inline-flex;
+    width: 100%;
+    height: max-content;
+}
+.filter-form-content {
+    font-family: 'Futura';
+    border: 1px solid #23395d;
+    outline: none;
+    height: max-content;
+    font-size: 0.8em;
+    font-weight: lighter;
+    background: none;
+    margin: 5px;
+}
+
+.filters-submit-btn {
+    display: inline-block;
+    width:40%;
+    height:2.5em;
+    background-color:white;
+    border: 2px solid #23395d;
+    border-radius: 5px;
+    cursor: pointer;
+    border-bottom:5px solid #23395d;
+    font-family:Futura;
+    font-size:0.8em;
+    color:#000000;
+    letter-spacing:1px;
+    margin: 20px 5px 5px 5px;
+    transition: 0.5s;
+}
+
+.green {
+    border: 2px solid darkgreen;
+    border-bottom: 5px solid darkgreen;
+}
+
+.filters-submit-btn:hover {
+    background-color: #aaaaaa;
+}
+
+
