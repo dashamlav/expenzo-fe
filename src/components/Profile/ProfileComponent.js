@@ -4,6 +4,7 @@ import ExpenseExpandedComponent from './Expenses/ExpenseExpanded/ExpenseExpanded
 import './profile.scss'
 import Modal from '../UI/Modal'
 import SingleExpenseContext from '../../contextManager/ExpenseContext'
+import ExpenseFilters from './Expenses/ExpenseFilters/ExpenseFilters'
 
 const ProfileComponent = () => {
 
@@ -16,6 +17,9 @@ const ProfileComponent = () => {
 
     return(
       <div className="profile-container">
+        <span className="expense-filters-span">
+          <ExpenseFilters></ExpenseFilters>
+        </span>
         <span className="expense-list-span">
           <ExpenseListComponent onClickExpenseCard={(singleExpenseData) => {
             setNewMode(false)

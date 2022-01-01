@@ -59,21 +59,21 @@ const RegisterComponent = () => {
                 <div className="underline-title" style={{width:160}}></div>
             </div>
             <form className="auth-form" onSubmit={registerSubmitHandler}>
-                <label for="register-name" style={{'padding-top':'13px'}}>&nbsp;NAME
+                <label for="register-name" style={{paddingTop:'13px'}}>&nbsp;NAME
                 </label>
                 <input id="register-name" className="auth-form-content" name="name" required />
                 <div className={borderClass}></div>
-                <label for="register-user-email" style={{'padding-top':'13px'}}>
+                <label for="register-user-email" style={{paddingTop:'13px'}}>
                     &nbsp;EMAIL
                 </label>
                 <input id="register-user-email" className="auth-form-content" type="email" name="email" required />
                 <div className={borderClass}></div>
-                <label for="register-user-password" style={{'padding-top':'13px'}}>&nbsp;PASSWORD
+                <label for="register-user-password" style={{paddingTop:'13px'}}>&nbsp;PASSWORD
                 </label>
                 <input id="register-user-password" className="auth-form-content" type="password" name="password" minlength="10" required />
                 <div className={borderClass}></div>
 
-                <label for="register-user-re-password" style={{'padding-top':'13px'}}>&nbsp;CONFIRM PASSWORD
+                <label for="register-user-re-password" style={{paddingTop:'13px'}}>&nbsp;CONFIRM PASSWORD
                 </label>
                 <input id="register-user-re-password" className="auth-form-content" type="password" name="cnf_password" required />
                 <div className={borderClass}></div>
