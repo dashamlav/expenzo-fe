@@ -4,8 +4,6 @@ import { urlFormat } from '../../../../utils/urlFormat'
 import AuthContext from '../../../../contextManager/AuthContextManager'
 import SingleExpenseContext from '../../../../contextManager/ExpenseContext'
 import { CategorySelect, PaymentModeSelect } from '../selectOptions'
-import Select from 'react-select'
-import { CategoryFilterSelectStyle, FilterAmountSelectStyle } from '../SelectStyles'
 
 const ExpenseForm = (props) => {
 

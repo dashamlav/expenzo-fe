@@ -25,10 +25,5 @@ const transactionTypeOptions = [
     {value:"netb", label: "NET BANKING"},
     {value:"upi", label: "UPI"},
 ]
-
-const amountOptions = [
-    { value: 'a', label: 'ASCENDING'},
-    { value: 'd', label: 'DESCENDING'}
-]
    
-export { categoryOptions, transactionTypeOptions, amountOptions }
+export { categoryOptions, transactionTypeOptions }

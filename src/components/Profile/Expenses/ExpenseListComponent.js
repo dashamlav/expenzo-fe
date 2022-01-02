@@ -4,18 +4,21 @@ import './expenses.scss'
 import { urlFormat } from '../../../utils/urlFormat'
 import AuthContext from '../../../contextManager/AuthContextManager'
 import SingleExpenseContext from '../../../contextManager/ExpenseContext'
+import ExpenseFilterContext from '../../../contextManager/ExpenseFilterContext'
 
 const ExpenseListComponent = (props) => {
 
     const [expenseData, setExpenseData] = useState([])
     const authCtx = useContext(AuthContext)
-    const expenseContext = useContext(SingleExpenseContext)
+    const expenseCtx = useContext(SingleExpenseContext)
+    const filterCtx = useContext(ExpenseFilterContext)
 
     // console.log(expenseData)
     useEffect(() => {
 
         const expenseListApiUrl = urlFormat('expenses/get-expenses')
 
+        const filters = filterCtx.filters
         const headers = new Headers()
         headers.append('Authorization', `Token ${authCtx.token}`)
 
@@ -29,7 +32,7 @@ const ExpenseListComponent = (props) => {
             .then((res)=>{
                 setExpenseData(res.results)
             })
-    }, [authCtx, expenseContext.changed])
+    }, [authCtx, expenseCtx.changed, filterCtx.filters])
 
     return(
         <div className="expense-list-wrapper">
@@ -42,7 +45,7 @@ const ExpenseListComponent = (props) => {
                     amount={singleExpense.amount}
                     date={singleExpense.date}
                     onClick= { () => {
-                        expenseContext.selectedExpenseHandler(singleExpense)
+                      expenseCtx.selectedExpenseHandler(singleExpense)
                     }}
                     />
               )
