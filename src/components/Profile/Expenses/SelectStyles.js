@@ -1,5 +1,5 @@
 
-const CategoryFilterSelectStyle = {
+const FilterSelectStyle = {
     container: (provided, state) => (
         {   
             ...provided,
@@ -48,8 +48,9 @@ const CategoryFilterSelectStyle = {
         {
             ...provided,
             borderRadius: "3px",
+            color: "black",
             cursor: "pointer",
-            backgroundColor: isFocused ? "#d6d6d6" :"none",
+            backgroundColor: isFocused ? "#d6d6d6" :"white",
             transition: "0.5s"
         }
     ),
@@ -57,4 +58,4 @@ const CategoryFilterSelectStyle = {
 }
 
 
-export { CategoryFilterSelectStyle }
+export { FilterSelectStyle }

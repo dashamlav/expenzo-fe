@@ -25,5 +25,12 @@ const transactionTypeOptions = [
     {value:"netb", label: "NET BANKING"},
     {value:"upi", label: "UPI"},
 ]
+
+const sortByOptions = [
+    {value:"-date", label: "DATE (NEWEST FIRST)"},
+    {value:"date", label: "DATE (OLDEST FIRST)"},
+    {value:"amount", label: "AMOUNT (ASCENDING)"},
+    {value:"-amount", label: "AMOUNT (DESCENDING)"},
+]
    
-export { categoryOptions, transactionTypeOptions }
+export { categoryOptions, transactionTypeOptions, sortByOptions }

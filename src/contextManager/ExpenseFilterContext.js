@@ -10,20 +10,22 @@ export const ExpenseFilterProvider = (props) => {
     const [currentFilters, setCurrentFitlers] = useState({
         minDate: null,
         maxDate: null,
-        minAMount: null,
+        minAmount: null,
         maxAmount: null,
-        selectedCategories: [],
-        selectedTransactionTypes: [],
+        categories: [], 
+        transactionTypes: [],
+        sortBy: '-date'
     })
 
     const changeFilters = (filtersObj) => {
         setCurrentFitlers({
             minDate: filtersObj.minDate,
             maxDate: filtersObj.maxDate,
-            minAMount: filtersObj.minAmount,
+            minAmount: filtersObj.minAmount,
             maxAmount: filtersObj.maxAmount,
-            selectedCategories: filtersObj.selectedCategories,
-            selectedTransactionTypes: filtersObj.selectedTransactionTypes,
+            categories: filtersObj.categories,
+            transactionTypes: filtersObj.transactionTypes,
+            sortBy: filtersObj.sortBy
         })
     }
 
@@ -31,7 +33,6 @@ export const ExpenseFilterProvider = (props) => {
         filters: currentFilters,
         changeFilters: changeFilters
     }
-    console.log(initialContext)
 
     return (
         <ExpenseFilterContext.Provider value={initialContext}>

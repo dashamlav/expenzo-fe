@@ -1,11 +1,9 @@
-import React, { useState, useRef, useContext } from 'react'
+import React, { useRef, useContext } from 'react'
 import Select from 'react-select'
-import { CategoryFilterSelectStyle } from '../SelectStyles'
-import { categoryOptions, transactionTypeOptions } from './filterOptions'
+import { FilterSelectStyle } from '../SelectStyles'
+import { categoryOptions, transactionTypeOptions, sortByOptions } from './filterOptions'
 import ExpenseFilterContext from '../../../../contextManager/ExpenseFilterContext'
 import '../expenses.scss'
-import { urlFormat } from '../../../../utils/urlFormat'
-
 
 
 const ExpenseFilters = () => {
@@ -14,41 +12,48 @@ const ExpenseFilters = () => {
     const formElement = useRef(null)
     const categorySelectRef = useRef(null)
     const transactionTypeSelectRef = useRef(null)
+    const sortBySelectRef = useRef(null)
 
     const submitFiltersHandler = (event) => {
         event.preventDefault()
         const filterObj = {}
 
-        filterObj['minDate'] = event.target.minDate.value
-        filterObj['maxDate'] = event.target.maxDate.value
-        filterObj['minAmount'] = event.target.minAmount.value
-        filterObj['maxAmount'] = event.target.maxAmount.value
-        filterObj['selectedCategories'] = categorySelectRef.current.getValue().map((obj)=>obj.value)
-        filterObj['selectedTransactionTypes'] = transactionTypeSelectRef.current.getValue().map((obj)=>obj.value)
-
-        filterContext.changeFilters(filterObj)
-
-        const fd = new FormData()
-
-        fd.append('minDate', filterObj.minDate)
-        fd.append('maxDate', filterObj.maxDate)
-        fd.append('minAmount', filterObj.minAmount)
-        fd.append('maxAmount', filterObj.maxAmount)
-        fd.append('categories', JSON.stringify(filterObj.selectedCategories))
-        fd.append('transactionTypes', JSON.stringify(filterObj.selectedTransactionTypes))
-
-        let test_url = urlFormat('expenses/test')
-        const requestOptions = {
-                method: "POST",
-                body: fd 
-        }
-
-        fetch(test_url, requestOptions)
-            .then(res=>console.log(res))
-            .catch((err)=>console.log(err))
-  
         
+        let minDate = event.target.minDate.value
+        let maxDate = event.target.maxDate.value
+        let minAmount = event.target.minAmount.value
+        let maxAmount = event.target.maxAmount.value
+        
+        if (minDate && !maxDate) maxDate = '3000-01-01'
+        if (maxDate && !minDate) minDate = '0000-01-01'
+        if (minAmount && !maxAmount) maxAmount = '2147483647'
+        if (maxAmount && !minAmount) minAmount = '0'
+        
+        filterObj['minDate'] = minDate
+        filterObj['maxDate'] = maxDate
+        filterObj['minAmount'] = minAmount
+        filterObj['maxAmount'] = maxAmount
+        filterObj['categories'] = categorySelectRef.current.getValue().map((obj)=>obj.value)
+        filterObj['transactionTypes'] = transactionTypeSelectRef.current.getValue().map((obj)=>obj.value)
+        filterObj['sortBy'] = sortBySelectRef.current.getValue()[0].value
 
+        //Changing filter context will cause the ExpenseListComponent to make a call to the back-end with attached filters
+        filterContext.changeFilters(filterObj)
+    }
+
+    const resetForm = () => {
+        formElement.current.reset()
+        categorySelectRef.current.clearValue()
+        transactionTypeSelectRef.current.clearValue()
+        filterContext.changeFilters({
+            minDate: null,
+            maxDate: null,
+            minAmount: null,
+            maxAmount: null,
+            categories: null,
+            transactionTypes: null,
+            sortBy:'-date'
+        })
     }
 
     return(
@@ -60,7 +65,7 @@ const ExpenseFilters = () => {
                 <form className="filters-form" ref={formElement} onSubmit={submitFiltersHandler}>
 
                     <div className="filter-single">
-                        <label for="filter-date" style={{paddingTop:'13px'}}>&nbsp;DATE</label>
+                        <label for="filter-date" style={{paddingTop:'13px'}}>&nbsp;DATE RANGE</label>
                         <div id="filter-date" className="filter-name">
                             <input 
                                 style={{width:"50%", minHeight:"20pt"}} 
@@ -112,7 +117,7 @@ const ExpenseFilters = () => {
                                 className="filter-form-content"
                                 classNamePrefix="filter-form-content"
                                 closeMenuOnSelect={false}
-                                styles={CategoryFilterSelectStyle}
+                                styles={FilterSelectStyle}
                                 placeholder="Select categories..."
                                 ref={categorySelectRef}
                             />
@@ -128,19 +133,30 @@ const ExpenseFilters = () => {
                                 className="filter-form-content"
                                 classNamePrefix="filter-form-content"
                                 closeMenuOnSelect={false}
-                                styles={CategoryFilterSelectStyle}
+                                styles={FilterSelectStyle}
                                 placeholder="Select payment modes..."
                                 ref={transactionTypeSelectRef}
                             />
                         </div>
                     </div>
+
+                    <div className="filter-single">
+                        <label for="filter-sort-by" style={{paddingTop:'13px'}}>&nbsp;SORT BY</label>
+                        <div id="filter-sort-by" className="filter-name">
+                            <Select
+                                options={sortByOptions}
+                                className="filter-form-content"
+                                classNamePrefix="filter-form-content"
+                                styles={FilterSelectStyle}
+                                placeholder="Select sorting..."
+                                ref={sortBySelectRef}
+                                defaultValue={sortByOptions[0]}
+                            />
+                        </div>
+                    </div>
                     
                     <div className="filter-single">
-                        <input className="filters-submit-btn" type="button" value="RESET" onClick={()=>{
-                            formElement.current.reset()
-                            categorySelectRef.current.clearValue()
-                            transactionTypeSelectRef.current.clearValue()
-                            }}/>
+                        <input className="filters-submit-btn" type="button" value="RESET" onClick={resetForm}/>
                         <input className="filters-submit-btn green" type="submit" value="APPLY" />
                     </div>
                 </form>      

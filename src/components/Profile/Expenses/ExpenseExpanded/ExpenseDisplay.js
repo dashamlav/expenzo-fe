@@ -12,7 +12,6 @@ const ExpenseDisplay = (props) => {
     const expenseCtx = useContext(SingleExpenseContext)    
     const singleData = expenseCtx.singleExpense
 
-    console.log(singleData)
     const deleteExpenseHandler = () => {
 
         const url = urlFormat('expenses/update-expense')
