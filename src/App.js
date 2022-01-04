@@ -6,6 +6,7 @@ import LandingPageComponent from './components/Landing/LandingPageComponent'
 import ProfileComponent from './components/Profile/ProfileComponent'
 import RequireAuth from './utils/requireAuth'
 import { ExpenseContextProvider } from './contextManager/ExpenseContext'
+import { ExpenseFilterProvider } from './contextManager/ExpenseFilterContext'
 
 function App() {
 
@@ -16,9 +17,11 @@ function App() {
             <Route path='/' element={<LandingPageComponent/>}/>
               <Route path='/profile' element={
                 <RequireAuth>
-                  <ExpenseContextProvider>
-                    <ProfileComponent/>
-                  </ExpenseContextProvider>
+                  <ExpenseFilterProvider>
+                    <ExpenseContextProvider>
+                      <ProfileComponent/>
+                    </ExpenseContextProvider>
+                  </ExpenseFilterProvider>
                 </RequireAuth>}
               />
             <Route path='/account-settings' element={<RequireAuth><h2>Account settings</h2></RequireAuth>}/>

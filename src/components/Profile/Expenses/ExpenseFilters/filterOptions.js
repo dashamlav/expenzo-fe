@@ -26,9 +26,11 @@ const transactionTypeOptions = [
     {value:"upi", label: "UPI"},
 ]
 
-const amountOptions = [
-    { value: 'a', label: 'ASCENDING'},
-    { value: 'd', label: 'DESCENDING'}
+const sortByOptions = [
+    {value:"-date", label: "DATE (NEWEST FIRST)"},
+    {value:"date", label: "DATE (OLDEST FIRST)"},
+    {value:"amount", label: "AMOUNT (ASCENDING)"},
+    {value:"-amount", label: "AMOUNT (DESCENDING)"},
 ]
    
-export { categoryOptions, transactionTypeOptions, amountOptions }
+export { categoryOptions, transactionTypeOptions, sortByOptions }
