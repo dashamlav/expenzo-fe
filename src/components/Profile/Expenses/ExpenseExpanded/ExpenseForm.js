@@ -3,7 +3,9 @@ import ExpenseKeyValue from './ExpenseKeyValue'
 import { urlFormat } from '../../../../utils/urlFormat'
 import AuthContext from '../../../../contextManager/AuthContextManager'
 import SingleExpenseContext from '../../../../contextManager/ExpenseContext'
-import { CategorySelect, PaymentModeSelect } from '../selectOptions'
+import Select from 'react-select'
+import {categoryOptions, transactionTypeOptions} from '../ExpenseFilters/filterOptions'
+import {ExpenseFormSelectStyle} from '../SelectStyles'
 
 const ExpenseForm = (props) => {
 
@@ -19,6 +21,8 @@ const ExpenseForm = (props) => {
     const [errorStatus, setErrorStatus] = useState(1000)
     const formElement = useRef(null)
     const authCtx = useContext(AuthContext)
+    const categoryRef = useRef(null)
+    const transactionTypeRef = useRef(null)
 
     const createExpense = (event) => {
 
@@ -28,8 +32,8 @@ const ExpenseForm = (props) => {
         let amount = event.target.amount.value
         let date = event.target.date.value
         let description = event.target.description.value
-        let category = event.target.category.value
-        let transactionType = event.target.paymentmode.value
+        let category = categoryRef.current.getValue()[0].value
+        let transactionType = transactionTypeRef.current.getValue()[0].value
         let receiptImage = event.target.image.files[0] || null
         
 
@@ -126,8 +130,8 @@ const ExpenseForm = (props) => {
         let amount = event.target.amount.value
         let date = event.target.date.value
         let description = event.target.description.value
-        let category = event.target.category.value
-        let transactionType = event.target.paymentmode.value
+        let category = categoryRef.current.getValue()[0].value
+        let transactionType = transactionTypeRef.current.getValue()[0].value
         let receiptImage = event.target.image.files[0]
 
         const url = urlFormat('expenses/update-expense')
@@ -217,7 +221,8 @@ const ExpenseForm = (props) => {
                             placeholder="₹..."
                             defaultValue= {editMode?singleData.amount:""}
                             autoComplete="off"
-                            >
+                            style={{width:"100%", letterSpacing:"5px"}}
+                        >
                                 
                         </input>
                     </div>
@@ -233,11 +238,34 @@ const ExpenseForm = (props) => {
                         >
                     </input>
                 } />
-                <ExpenseKeyValue keyname={editMode?`${singleData.category}{Math.random()}`:""} fieldname="CATEGORY" val={
-                    <CategorySelect defaultValue={editMode?singleData.category:"oth"}></CategorySelect>
+                <ExpenseKeyValue keyname={editMode?`${singleData.category}{Math.random()}`:""} fieldname="CATEGORY" val={ 
+                        <Select
+                            options={categoryOptions}
+                            styles={ExpenseFormSelectStyle}
+                            placeholder="Select category"
+                            defaultValue={
+                                editMode?
+                                categoryOptions.filter((obj)=>obj.value===singleData.category):
+                                categoryOptions[14]
+                            }
+                            ref={categoryRef}
+                        >       
+                        </Select>
+                    
                 } />
                 <ExpenseKeyValue keyname={editMode?`${singleData.transactionType}{Math.random()}`:""} fieldname="PAYMENT MODE" val={
-                    <PaymentModeSelect defaultValue={editMode?singleData.transactionType:"cash"}></PaymentModeSelect>
+                    <Select
+                        options={transactionTypeOptions}
+                        styles={ExpenseFormSelectStyle}
+                        placeholder="Select payment mode"
+                        defaultValue={
+                            editMode?
+                            transactionTypeOptions.filter((obj)=>obj.value===singleData.transactionType):
+                            transactionTypeOptions[0]
+                        }
+                        ref={transactionTypeRef}
+                    >     
+                    </Select>
                 } />
                 <ExpenseKeyValue keyname={editMode?`${singleData.description}{Math.random()}`:""} fieldname="DESCRIPTION" val={
                     <textarea 
