@@ -5,16 +5,24 @@ import { urlFormat } from '../../../utils/urlFormat'
 import AuthContext from '../../../contextManager/AuthContextManager'
 import SingleExpenseContext from '../../../contextManager/ExpenseContext'
 import ExpenseFilterContext from '../../../contextManager/ExpenseFilterContext'
+import Pagination from './ExpensePagination'
 
 const ExpenseListComponent = (props) => {
 
     const [expenseData, setExpenseData] = useState([])
+    const [pageNumber, setPageNumber] = useState(1)
     const [isLoading, setIsLoading] = useState(true)
     const [hasAppliedFilters, setHasAppliedFilters] = useState(false)
     const authCtx = useContext(AuthContext)
     const expenseCtx = useContext(SingleExpenseContext)
     const filterCtx = useContext(ExpenseFilterContext)
+    
 
+    const onPageChange = (newPageNumber) => {
+      setPageNumber(newPageNumber)
+    }
+
+    console.log(pageNumber)
     useEffect(() => {
         setIsLoading(true)
         setHasAppliedFilters(false)
@@ -29,6 +37,7 @@ const ExpenseListComponent = (props) => {
             numFilters++
           }
         } 
+        filterString += `page=${pageNumber}`
         if (numFilters>1) setHasAppliedFilters(true)
 
         const expenseListApiUrl = urlFormat('expenses/get-expenses' + filterString)
@@ -48,46 +57,46 @@ const ExpenseListComponent = (props) => {
                 setTimeout(()=>setIsLoading(false), 500)
             })
             .catch(err=>console.log(err))
-    }, [authCtx, expenseCtx.changed, filterCtx.filters])
+    }, [authCtx, expenseCtx.changed, filterCtx.filters, pageNumber])
 
     return(
-        <div className="expense-list-wrapper">
-          {
-            (isLoading) ?
-
-              <div className="wait-message">
-                <div className="wait-loader"></div>
-                <p> Fetching your expense data...</p>
-              </div> :
-
-              (expenseData.length >0) ?
-
-                expenseData.map((singleExpense)=>{
-                  return (
-                        <ExpenseCardLiteComponent
-                        key={singleExpense.id} 
-                        title={singleExpense.title} 
-                        amount={singleExpense.amount}
-                        date={singleExpense.date}
-                        onClick= { () => {
-                          expenseCtx.selectedExpenseHandler(singleExpense)
-                        }}
-                        />
-                  )
-                }):
+        <React.Fragment>
+          <div className="expense-list-wrapper">
+            {
+              (isLoading) ?
 
                 <div className="wait-message">
-                  <div className="no-data-card">
-                    {hasAppliedFilters ?
-                      <p>No matching query exists. <br></br>Please change the filters and try again.</p>:
-                      <p>Get started by clicking the ADD NEW EXPENSE button.</p>
-                    }
+                  <div className="wait-loader"></div>
+                  <p> Fetching your expense data...</p>
+                </div> :
+
+                (expenseData.length >0) ?
+
+                  expenseData.map((singleExpense)=>{
+                    return (
+                          <ExpenseCardLiteComponent
+                          key={singleExpense.id} 
+                          title={singleExpense.title} 
+                          amount={singleExpense.amount}
+                          date={singleExpense.date}
+                          onClick= {()=>expenseCtx.selectedExpenseHandler(singleExpense)}
+                          />
+                    )
+                  })
+                  :
+
+                  <div className="wait-message">
+                    <div className="no-data-card">
+                      {hasAppliedFilters ?
+                        <p>No matching query exists. <br></br>Please change the filters and try again.</p>:
+                        <p>Get started by clicking the ADD NEW EXPENSE button.</p>
+                      }
+                    </div>
                   </div>
-                </div>
-          }
-          
-          
-        </div>
+            }
+          </div>
+          <Pagination onPageChange={onPageChange}></Pagination>
+        </React.Fragment>
     )
 }
 

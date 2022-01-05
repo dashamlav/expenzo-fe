@@ -8,14 +8,15 @@ const ExpenseKeyValue = (props) => {
                 <p style={{ margin: "unset", width:"fit-content"}}> {props.fieldname} </p>
             </div>
             <div className="expense-value" onClick={props.onClick}>
-                <p 
-                    style={{ margin: "unset", 
-                            cursor: (props.fieldname==='IMAGE')?"pointer":"", 
+                <div
+                    style={{cursor: (props.fieldname==='IMAGE')?"pointer":"", 
                             textDecoration: (props.fieldname==='IMAGE')?"underline":"",
-                            }}
-                            > 
+                            // display:"inline-flex",
+                            width: "100%"
+                    }}
+                > 
                     {props.val} 
-                </p>
+                </div>
             </div>
         </div>
     )

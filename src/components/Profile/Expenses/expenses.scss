@@ -1,8 +1,7 @@
 
-
 .expense-list-wrapper {
     position: relative;
-    height: 48rem;
+    height: 43rem;
     border-radius: 5px;
     padding: 10px 10px 10px 10px;
     overflow:scroll;
@@ -180,7 +179,7 @@
 }
 
 .expense-value {
-    display: flex;
+    display: inline-flex;
     padding: 2px 10px 2px 10px;
     margin-left: 5px;
     margin-right: 3px;
@@ -259,9 +258,10 @@
     position: absolute;
     color: #D03D56;
     font-size: 1em;
-    // margin-top: 3px;
+    margin-top: 3px;
     text-align: right;
     padding-top: 5px;
+    font-weight: bold;
 }
 
 .success-green {
@@ -330,3 +330,45 @@
 }
 
 
+//  Pagination Styles
+  
+.container {
+max-width: 600px;
+margin: auto;
+border-radius: 10px;
+}
+  
+.pagination ul {
+margin: 2em auto;
+padding-left: 0;
+list-style-type: none;
+}
+
+.page-number {
+display: inline;
+cursor: pointer;
+}
+
+
+/* Pagination 2 */
+.pagination-2 .page-number {
+padding: 8px 16px;
+background-color: #f3f4f2;
+}
+
+.pagination-2 .page-number:hover {
+background-color: #d9dcd6;
+}
+
+.pagination-2 .active {
+border-radius: 4px;
+background-color: #16425b;
+}
+
+.pagination-2 .active:hover {
+background-color: #16425b;
+}
+
+.pagination-2 .active a {
+color: #f3f4f2;
+}
