@@ -7,6 +7,38 @@
     padding: 10px 10px 10px 10px;
     overflow:scroll;
     margin: 10px 10px 10px 10px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.wait-message {
+    font-size: 1.2em;
+    position: absolute;
+    top: 20%;
+    width: 80%;
+    margin: 10px 10px 10px 10px;
+    padding: 10px 10px 10px 10px;
+    align-items: center;
+}
+.wait-loader {
+    display: inline-flex;
+    align-self: center;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #23395d; 
+    border-radius: 10em;
+    width: 50px;
+    height: 50px;
+    animation: spin 1.5s linear infinite;
+}
+
+.no-data-card {
+    height: inherit;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .expense-filters-wrapper {
@@ -76,7 +108,7 @@
     width: 100%;
     top: 50%;
     transform: translateY(20%);
-    font-family: 'Futura';
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .expense-expand-inner-container {
@@ -157,7 +189,7 @@
 }
 
 .expense-form-content {
-    font-family: 'Futura';
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border: 1px solid #23395d;
     outline: none;
     height: 20pt;

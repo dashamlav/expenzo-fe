@@ -18,7 +18,6 @@ const ExpenseCard = styled.div`
     align-items: center;
     transition: 0.5s;
     border: 2px solid #23395d;
-    font-family:Futura;
     background-color: ${props => (props.isActive ? '#aaaaaa' : 'white')};
 
     &:hover {
