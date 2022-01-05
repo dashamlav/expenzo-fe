@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import ExpenseCardLiteComponent from './ExpenseCard'
 import './expenses.scss'
 import { urlFormat } from '../../../utils/urlFormat'
@@ -9,21 +9,27 @@ import ExpenseFilterContext from '../../../contextManager/ExpenseFilterContext'
 const ExpenseListComponent = (props) => {
 
     const [expenseData, setExpenseData] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [hasAppliedFilters, setHasAppliedFilters] = useState(false)
     const authCtx = useContext(AuthContext)
     const expenseCtx = useContext(SingleExpenseContext)
     const filterCtx = useContext(ExpenseFilterContext)
 
     useEffect(() => {
-
+        setIsLoading(true)
+        setHasAppliedFilters(false)
         const filters = filterCtx.filters
         let filterString = '?'
 
+        let numFilters = 0
         for (const [filterName, filterValue] of Object.entries(filters)) {
           if (filterValue){
             if(filterValue instanceof Array && filterValue.length === 0) continue
             filterString += `${filterName}=${filterValue}&`
+            numFilters++
           }
         } 
+        if (numFilters>1) setHasAppliedFilters(true)
 
         const expenseListApiUrl = urlFormat('expenses/get-expenses' + filterString)
 
@@ -39,26 +45,48 @@ const ExpenseListComponent = (props) => {
             .then((res)=>res.json())
             .then((res)=>{
                 setExpenseData(res.results)
+                setTimeout(()=>setIsLoading(false), 500)
             })
+            .catch(err=>console.log(err))
     }, [authCtx, expenseCtx.changed, filterCtx.filters])
 
     return(
         <div className="expense-list-wrapper">
           {
-            expenseData.map((singleExpense)=>{
-              return (
-                    <ExpenseCardLiteComponent
-                    key={singleExpense.id} 
-                    title={singleExpense.title} 
-                    amount={singleExpense.amount}
-                    date={singleExpense.date}
-                    onClick= { () => {
-                      expenseCtx.selectedExpenseHandler(singleExpense)
-                    }}
-                    />
-              )
-            })
+            (isLoading) ?
+
+              <div className="wait-message">
+                <div className="wait-loader"></div>
+                <p> Fetching your expense data...</p>
+              </div> :
+
+              (expenseData.length >0) ?
+
+                expenseData.map((singleExpense)=>{
+                  return (
+                        <ExpenseCardLiteComponent
+                        key={singleExpense.id} 
+                        title={singleExpense.title} 
+                        amount={singleExpense.amount}
+                        date={singleExpense.date}
+                        onClick= { () => {
+                          expenseCtx.selectedExpenseHandler(singleExpense)
+                        }}
+                        />
+                  )
+                }):
+
+                <div className="wait-message">
+                  <div className="no-data-card">
+                    {hasAppliedFilters ?
+                      <p>No matching query exists. <br></br>Please change the filters and try again.</p>:
+                      <p>Get started by clicking the ADD NEW EXPENSE button.</p>
+                    }
+                  </div>
+                </div>
           }
+          
+          
         </div>
     )
 }
