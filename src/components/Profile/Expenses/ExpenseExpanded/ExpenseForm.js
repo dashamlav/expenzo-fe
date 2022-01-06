@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useEffect } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import ExpenseKeyValue from './ExpenseKeyValue'
 import { urlFormat } from '../../../../utils/urlFormat'
 import AuthContext from '../../../../contextManager/AuthContextManager'

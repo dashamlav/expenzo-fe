@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import ExpenseCardLiteComponent from './ExpenseCard'
 import './expenses.scss'
 import { urlFormat } from '../../../utils/urlFormat'
@@ -11,6 +11,7 @@ const ExpenseListComponent = (props) => {
 
     const [expenseData, setExpenseData] = useState([])
     const [pageNumber, setPageNumber] = useState(1)
+    const [totalCount, setTotalCount] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [hasAppliedFilters, setHasAppliedFilters] = useState(false)
     const authCtx = useContext(AuthContext)
@@ -22,7 +23,6 @@ const ExpenseListComponent = (props) => {
       setPageNumber(newPageNumber)
     }
 
-    console.log(pageNumber)
     useEffect(() => {
         setIsLoading(true)
         setHasAppliedFilters(false)
@@ -54,6 +54,7 @@ const ExpenseListComponent = (props) => {
             .then((res)=>res.json())
             .then((res)=>{
                 setExpenseData(res.results)
+                setTotalCount(res.count)
                 setTimeout(()=>setIsLoading(false), 500)
             })
             .catch(err=>console.log(err))
@@ -95,7 +96,7 @@ const ExpenseListComponent = (props) => {
                   </div>
             }
           </div>
-          <Pagination onPageChange={onPageChange}></Pagination>
+          <Pagination onPageChange={onPageChange} totalCount={totalCount} currentPageNo={pageNumber}></Pagination>
         </React.Fragment>
     )
 }
