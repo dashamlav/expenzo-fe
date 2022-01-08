@@ -13,7 +13,6 @@ const Pagination = (props) => {
         let lastPageIndex = Math.ceil(props.totalCount/MAX_RESULTS_PER_PAGE)
         setMaxPageNumber(lastPageIndex)
         let range = getArrayForRange(1, Math.min(MAX_PAGE_NUMBER_DISPLAY, lastPageIndex))
-        console.log(range)
         setPageRange(range)
     },[props.totalCount])
 
