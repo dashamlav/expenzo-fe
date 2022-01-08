@@ -148,7 +148,6 @@ const ExpenseFilters = () => {
                                 className="filter-form-content"
                                 classNamePrefix="filter-form-content"
                                 styles={FilterSelectStyle}
-                                placeholder="Select sorting..."
                                 ref={sortBySelectRef}
                                 defaultValue={sortByOptions[0]}
                             />

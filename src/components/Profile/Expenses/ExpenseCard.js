@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import './expenses.scss'
-import useComponentVisible from '../../../utils/outsideClick'
 import formatDate from '../../../utils/dateFormat'
 
 const ExpenseCard = styled.div`
@@ -18,24 +17,16 @@ const ExpenseCard = styled.div`
     align-items: center;
     transition: 0.5s;
     border: 2px solid #23395d;
-    background-color: ${props => (props.isActive ? '#aaaaaa' : 'white')};
+    background-color: ${props => (props.isActive ? '#b6b6b6' : 'white')};
 
     &:hover {
         background: #aaaaaa;
     }
-
 `
 
 const ExpenseCardLiteComponent = (props) => {
-    
-    const [ref, isActive, setIsActive] = useComponentVisible(false)
-
     return(
-            <ExpenseCard isActive={isActive} ref={ref} onClick={
-                () => {
-                    setIsActive(true)
-                    props.onClick()
-                }} >
+        <ExpenseCard isActive={props.isActive} onClick={() => props.onClick()} >
             <div className="expense-title-container">
                 <p className="expense-title">{props.title}</p>
             </div>

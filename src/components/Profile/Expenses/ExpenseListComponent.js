@@ -17,7 +17,7 @@ const ExpenseListComponent = (props) => {
     const authCtx = useContext(AuthContext)
     const expenseCtx = useContext(SingleExpenseContext)
     const filterCtx = useContext(ExpenseFilterContext)
-    
+    console.log(expenseData)
 
     const onPageChange = (newPageNumber) => {
       setPageNumber(newPageNumber)
@@ -55,7 +55,8 @@ const ExpenseListComponent = (props) => {
             .then((res)=>{
                 setExpenseData(res.results)
                 setTotalCount(res.count)
-                setTimeout(()=>setIsLoading(false), 500)
+                // setTimeout(()=>setIsLoading(false), 500)
+                setIsLoading(false)
             })
             .catch(err=>console.log(err))
     }, [authCtx, expenseCtx.changed, filterCtx.filters, pageNumber])
@@ -71,7 +72,7 @@ const ExpenseListComponent = (props) => {
                   <p> Fetching your expense data...</p>
                 </div> :
 
-                (expenseData.length >0) ?
+                (expenseData.length && expenseData.length > 0) ?
 
                   expenseData.map((singleExpense)=>{
                     return (
@@ -80,12 +81,12 @@ const ExpenseListComponent = (props) => {
                           title={singleExpense.title} 
                           amount={singleExpense.amount}
                           date={singleExpense.date}
+                          isActive={singleExpense.id === expenseCtx.singleExpense.id}
                           onClick= {()=>expenseCtx.selectedExpenseHandler(singleExpense)}
                           />
                     )
                   })
                   :
-
                   <div className="wait-message">
                     <div className="no-data-card">
                       {hasAppliedFilters ?
