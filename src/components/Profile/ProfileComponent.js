@@ -14,17 +14,14 @@ const ProfileComponent = () => {
 
     const expenseCtx = useContext(SingleExpenseContext)
     const singleExpense = expenseCtx.singleExpense
-
+    console.log(singleExpense)
     return(
       <div className="profile-container">
         <span className="expense-filters-span">
           <ExpenseFilters></ExpenseFilters>
         </span>
         <span className="expense-list-span">
-          <ExpenseListComponent onClickExpenseCard={(singleExpenseData) => {
-            setNewMode(false)
-          }}>
-          </ExpenseListComponent>
+          <ExpenseListComponent />
         </span>
         <span className="expense-expanded-span">
           <button id="add-expense-button" onClick={() =>{

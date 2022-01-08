@@ -105,6 +105,9 @@ const ExpenseForm = (props) => {
             .then((res)=>{
                 if(res) {
                     formElement.current.reset()
+                    categoryRef.current.setValue(categoryOptions[14])
+                    transactionTypeRef.current.setValue(transactionTypeOptions[0])
+                    console.log(categoryRef.current)
                     setErrorStatus(201)
                     setErrorMsg("New record created successfully")
                     setTimeout(()=>{
@@ -221,7 +224,7 @@ const ExpenseForm = (props) => {
                             placeholder="₹..."
                             defaultValue= {editMode?singleData.amount:""}
                             autoComplete="off"
-                            style={{width:"100%", letterSpacing:"5px"}}
+                            style={{width:"100%", letterSpacing:"5px", fontWeight:"bold"}}
                         >
                                 
                         </input>

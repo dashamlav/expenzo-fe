@@ -50,6 +50,7 @@ const ExpenseDisplay = (props) => {
     }
 
     return (
+        (singleData.id)?
         <React.Fragment>
             <div className="ee-title">
                 <p style={{ margin: "unset"}}>{singleData.title} </p>
@@ -57,7 +58,7 @@ const ExpenseDisplay = (props) => {
             <div className="expense-expand-inner-container">
                 <span style={{width:"100%", display: "inline-block"}}>
                     <div className="ee-amount">
-                        <p style={{ margin: "unset"}}> ₹ {singleData.amount} </p>
+                        <p style={{ margin: "unset", marginTop:"5px"}}> ₹ {singleData.amount} </p>
                     </div>
                 </span>
 
@@ -76,7 +77,8 @@ const ExpenseDisplay = (props) => {
             <button type="button" className="expense-form-submit discard" onClick={deleteExpenseHandler}>DELETE</button>
             <button type="button" className="expense-form-submit" onClick={()=>props.setEditMode(true)}>EDIT</button>
             </div>
-        </React.Fragment>
+        </React.Fragment>:
+        <React.Fragment />
     )
 }
 

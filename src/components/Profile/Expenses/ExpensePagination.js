@@ -10,10 +10,10 @@ const Pagination = (props) => {
     const [maxPageNumber, setMaxPageNumber] = useState(5)
 
     useEffect(()=>{
-        console.log(props.totalCount)
         let lastPageIndex = Math.ceil(props.totalCount/MAX_RESULTS_PER_PAGE)
         setMaxPageNumber(lastPageIndex)
         let range = getArrayForRange(1, Math.min(MAX_PAGE_NUMBER_DISPLAY, lastPageIndex))
+        console.log(range)
         setPageRange(range)
     },[props.totalCount])
 
@@ -23,8 +23,8 @@ const Pagination = (props) => {
 
     const setPrevPageRange = () => {
         setPageRange(currentPageRange=>{
-            let lastIndex = currentPageRange[currentPageRange.length-1]
-            return getArrayForRange(lastIndex-MAX_PAGE_NUMBER_DISPLAY, lastIndex-1)
+            let firstIndex = currentPageRange[0]
+            return getArrayForRange(firstIndex-MAX_PAGE_NUMBER_DISPLAY, firstIndex-1)
         })
     }
 
@@ -37,18 +37,18 @@ const Pagination = (props) => {
     return(
         <div class="pagination-container">
             <ul class="pagination-list">
-                <li class="page-number">
+                <li class="page-list-item">
                     <button 
                         className="page-number-button"
                         type="button" 
                         onClick={setPrevPageRange} 
-                        disabled={pageRange[0]===1}>
+                        disabled={pageRange[0]===1 || pageRange.length===0}>
                         &laquo;
                     </button>
                 </li>
                 {
                     pageRange.map((pageNumber)=>
-                        <li key={pageNumber} className="page-number">
+                        <li key={pageNumber} className="page-list-item">
                             <button 
                                 className={`page-number-button ${(pageNumber===props.currentPageNo)?'active':''}`}
                                 type="button" 
@@ -57,7 +57,7 @@ const Pagination = (props) => {
                             </button>
                         </li>)
                 }
-                <li class="page-number">
+                <li class="page-list-item">
                     <button 
                         className="page-number-button"
                         type="button" 
