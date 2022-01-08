@@ -24,7 +24,7 @@ const ProfileComponent = () => {
           <ExpenseListComponent />
         </span>
         <span className="expense-expanded-span">
-          <button id="add-expense-button" onClick={() =>{
+          <button  className="add-expense-btn"onClick={() =>{
             setNewMode(true)
             setClickedNewExpense(true)
           }}> +  &nbsp; ADD NEW EXPENSE</button>

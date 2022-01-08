@@ -7,4 +7,18 @@ const getArrayForRange = (start,end) => {
     return arr
 }
 
-export { getArrayForRange }
+const downloadStream = (blob, filename) => {
+    // Using vanilla Javascript because don't want to use any library just for download
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+}
+
+export { getArrayForRange, downloadStream }
