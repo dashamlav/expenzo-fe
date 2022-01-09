@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 
 const ExpenseFilterContext = React.createContext({
     filters: null,
-    changeFilters: () => {}
+    changeFilters: () => {},
+    getFiltersString: () => {}
 })
 
 export const ExpenseFilterProvider = (props) => {
@@ -29,9 +30,28 @@ export const ExpenseFilterProvider = (props) => {
         })
     }
 
+    // Returns the filter string required to attach with GET request for expense list.
+    // Takes page number as argument because currently we are not storing page number in filter context
+    const getFiltersString = (pageNumber) => {
+        let numFilters = 0
+        const filters = currentFilters
+        let filterString = '?'
+
+        for (const [filterName, filterValue] of Object.entries(filters)) {
+            if (filterValue){
+            if(filterValue instanceof Array && filterValue.length === 0) continue
+            filterString += `${filterName}=${filterValue}&`
+            numFilters++
+            }
+        } 
+        filterString += `page=${pageNumber}`
+        return [filterString, numFilters]
+    }
+
     const initialContext = {
         filters: currentFilters,
-        changeFilters: changeFilters
+        changeFilters: changeFilters,
+        getFiltersString: getFiltersString
     }
 
     return (

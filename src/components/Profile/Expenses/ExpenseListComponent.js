@@ -15,6 +15,7 @@ const ExpenseListComponent = (props) => {
     const [totalCount, setTotalCount] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [hasAppliedFilters, setHasAppliedFilters] = useState(false)
+    const [errorMsg, setErrorMsg] = useState(null)
     const authCtx = useContext(AuthContext)
     const expenseCtx = useContext(SingleExpenseContext)
     const filterCtx = useContext(ExpenseFilterContext)
@@ -23,32 +24,13 @@ const ExpenseListComponent = (props) => {
       setPageNumber(newPageNumber)
     }
 
-
-    // Takes the applied filters from filter context and returns the filter string required for expense GET req
-    // Also return a numFilters, i.e. the number of filters applied.
-    const getFilterString = () => {
-      let numFilters = 0
-      const filters = filterCtx.filters
-      let filterString = '?'
-
-      for (const [filterName, filterValue] of Object.entries(filters)) {
-        if (filterValue){
-          if(filterValue instanceof Array && filterValue.length === 0) continue
-          filterString += `${filterName}=${filterValue}&`
-          numFilters++
-        }
-      } 
-      filterString += `page=${pageNumber}`
-      return [filterString, numFilters]
-    }
-
     useEffect(() => {
         setIsLoading(true)
         setHasAppliedFilters(false)
-        const [filterString, numFilters] = getFilterString()
+        const [filtersString, numFilters] = filterCtx.getFiltersString(pageNumber)
         if (numFilters>1) setHasAppliedFilters(true)
 
-        const expenseListApiUrl = urlFormat('expenses/get-expenses' + filterString)
+        const expenseListApiUrl = urlFormat('expenses/get-expenses' + filtersString)
 
         const headers = new Headers()
         headers.append('Authorization', `Token ${authCtx.token}`)
@@ -70,8 +52,8 @@ const ExpenseListComponent = (props) => {
 
 
     const downloadCSV = () => {
-      const [filterString, ] = getFilterString()
-      const downloadCsvUrl = urlFormat('expenses/download-csv' + filterString)
+      const [filtersString, ] = filterCtx.getFiltersString(pageNumber)
+      const downloadCsvUrl = urlFormat('expenses/download-csv' + filtersString)
       const headers = new Headers()
       headers.append('Authorization', `Token ${authCtx.token}`)
 
@@ -81,12 +63,20 @@ const ExpenseListComponent = (props) => {
       }
 
       fetch(downloadCsvUrl, requestOptions)
-        .then(res=>res.blob())
+        .then(res=>{
+          console.log(res)
+          if(res.ok) return res.blob()
+          setErrorMsg("You're sending too many requests.")
+          setTimeout(()=>setErrorMsg(null), 5000)
+          return null
+        })
         .then(blob=>{
-          let partialEmail = authCtx.userEmail.split('@')[0]
-          let date = new Date()
-          let dateStamp = date.toISOString().split('T')[0]
-          downloadStream(blob,`${partialEmail}_${dateStamp}_expense_data`)
+          if (blob) {
+            let partialEmail = authCtx.userEmail.split('@')[0]
+            let date = new Date()
+            let dateStamp = date.toISOString().split('T')[0]
+            downloadStream(blob,`${partialEmail}_${dateStamp}_expense_data`)
+          }
         })
         .catch(err=>console.log(err))
     }
@@ -129,7 +119,12 @@ const ExpenseListComponent = (props) => {
           </div>
           <Pagination onPageChange={onPageChange} totalCount={totalCount} currentPageNo={pageNumber}></Pagination>
           {(expenseData.length && expenseData.length > 0) ?
-            <button type="button" className="download-csv-btn green" onClick={downloadCSV}> DOWNLOAD AS CSV</button>:
+            <div>
+              <button type="button" className="download-csv-btn green" onClick={downloadCSV}> DOWNLOAD AS CSV</button>
+              {errorMsg && <p style={{margin:"unset", color:"#D03D56"}}>{errorMsg}</p>}
+            </div>
+            
+            :
             <React.Fragment></React.Fragment>}
         </React.Fragment>
     )
