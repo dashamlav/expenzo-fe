@@ -9,10 +9,11 @@ nav {
     height: 5em;
 }
 
-.brand-name {
+.brand-name a{
     letter-spacing: 15px;
     font-size: 40px;
     font-weight:bold;
+    color: white;
 }
 
 .nav-ul {
@@ -73,8 +74,3 @@ nav {
 .dropdown-content a:hover {
     background-color: #ddd;
 }
-  
-
-// .dropdown:hover .dropdown-content {
-//     display: block;
-// }

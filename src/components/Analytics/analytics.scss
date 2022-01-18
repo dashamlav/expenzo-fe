@@ -1,0 +1,23 @@
+
+.analytics-container {
+    position:relative;
+    width: 100%;
+    height: max-content;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.chart-container {
+    margin: auto;
+    margin-bottom: 3em;
+    width: 60%;
+    padding: 1em;
+    border: 1px solid rgb(0, 0, 0, 0.1);
+    height: max-content;
+}
+
+.year-select {
+    display: flex;
+    width: 20%;
+    margin: auto;
+    margin-top: 1.5em;
+}

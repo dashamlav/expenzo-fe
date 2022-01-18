@@ -7,6 +7,7 @@ import ProfileComponent from './components/Profile/ProfileComponent'
 import RequireAuth from './utils/requireAuth'
 import { ExpenseContextProvider } from './contextManager/ExpenseContext'
 import { ExpenseFilterProvider } from './contextManager/ExpenseFilterContext'
+import AnalyticsComponent from './components/Analytics/AnalyticsComponent'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
                 </RequireAuth>}
               />
             <Route path='/account-settings' element={<RequireAuth><h2>Account settings</h2></RequireAuth>}/>
+            <Route path='/analytics' element={<RequireAuth><AnalyticsComponent/></RequireAuth>}></Route>
         </Routes>
       
     </div>
