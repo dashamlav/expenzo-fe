@@ -7,6 +7,7 @@ const FilterSelectStyle = {
             fontFamily: 'Futura',
             border: 'none',
             width: "100%",
+            marginRight: "1em"
         }
     ),
     control: (provided,state) => (

@@ -48,7 +48,12 @@ const Header = () => {
 
     return(
         <nav>
-            <div className="brand-name">EXPENZO</div>
+            <div className="brand-name">
+                <Link to="/profile">
+                    EXPENZO
+                </Link>
+                </div>
+            
             <ul className="nav-ul" onClick={getClickedField}>
                 <li className="nav-list"><p id="how-it-works">HOW IT WORKS</p></li>
                 <li className="nav-list"><p id="feedback">FEEDBACK</p></li>
@@ -58,7 +63,13 @@ const Header = () => {
                     (authCtx.isLoggedIn)?
                     <React.Fragment>
                         <li className="nav-list"><p id="collections">MY COLLECTIONS</p></li>
-                        <li className="nav-list"><p id="statistics">STATISTICS</p></li>
+                        <li className="nav-list">
+                            <Link to="/analytics">
+                                <p id="analytics">
+                                    ANALYTICS
+                                </p>
+                            </Link>
+                        </li>
                         <li className="nav-list" style={{float:'right'}}>
                             <p>
                                 <div className="dropdown" ref={ref} onClick={clickDropdownHandler}>
