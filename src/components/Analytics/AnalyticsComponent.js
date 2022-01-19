@@ -1,6 +1,7 @@
 import React from 'react'
 import MonthlyBar from './MonthlyBar'
 import CategoryBar from './CategoryBar'
+import PaymentPie from './PaymentPie'
 import './analytics.scss'
 
 const AnalyticsComponent = () => {
@@ -8,6 +9,7 @@ const AnalyticsComponent = () => {
         <div className="analytics-container">
             <MonthlyBar></MonthlyBar>
             <CategoryBar></CategoryBar>
+            <PaymentPie></PaymentPie>
         </div>
     )
 }

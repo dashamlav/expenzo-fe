@@ -27,7 +27,7 @@ ChartJS.register(
 );
 
 const monthOptions = [
-    // {value: 'All', label: 'ALL'},
+    {value: 'All', label: 'ALL'},
     {value: 'Jan', label: 'JANUARY'},
     {value: 'Feb', label: 'FEBRUARY'},
     {value: 'Mar', label: 'MARCH'},
@@ -48,11 +48,10 @@ const CategoryBar = () => {
     const [selectedYear, setSelectedYear] = useState(yearOptions[0].value)
     const [selectedMonth, setSelectedMonth] = useState(monthOptions[0].value)
     const [categoryData, setCategoryData] = useState(null)
-    console.log(categoryData)
     const authCtx = useContext(AuthContext)
     useEffect(()=>{
 
-        const url = urlFormat('expenses/get-category-data')
+        const url = urlFormat('expenses/get-field-data?fieldType=category')
     
         const headers = new Headers()
         headers.append('Authorization', `Token ${authCtx.token}`)
@@ -117,7 +116,6 @@ const CategoryBar = () => {
         datasets: [
             {
                 data: categoryOptions.map((category) => categoryData?categoryData[selectedYear][selectedMonth][category.value]:0),
-                // data: labels.map((category) => Math.random()),
                 borderColor: 'transparent',
                 backgroundColor: '#23395d',
             }
