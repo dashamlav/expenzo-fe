@@ -7,6 +7,7 @@
 }
 
 .chart-container {
+    position: relative;
     margin: auto;
     margin-bottom: 3em;
     width: 60%;
@@ -20,4 +21,11 @@
     width: 20%;
     margin: auto;
     margin-top: 1.5em;
+}
+
+.no-data-to-display {
+    position: absolute;
+    left: 40%;
+    top:50%;
+    font-size: 1.5em;
 }
