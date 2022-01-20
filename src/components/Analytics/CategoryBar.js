@@ -81,7 +81,7 @@ const CategoryBar = () => {
             },
             title: {
                 display: true,
-                text: 'Your category-wise expense distribution for 2022',
+                text: `Your category-wise expense distribution for ${(selectedMonth === 'All')?'':selectedMonth+' '}${selectedYear}`,
                 font:{
                     size: 25,
                 }
