@@ -48,9 +48,10 @@ const CategoryBar = () => {
     const [selectedYear, setSelectedYear] = useState(yearOptions[0].value)
     const [selectedMonth, setSelectedMonth] = useState(monthOptions[0].value)
     const [categoryData, setCategoryData] = useState(null)
+    const [errMsg, setErrMsg] = useState(null)
     const authCtx = useContext(AuthContext)
-    useEffect(()=>{
 
+    useEffect(()=>{
         const url = urlFormat('expenses/get-field-data?fieldType=category')
     
         const headers = new Headers()
@@ -61,11 +62,20 @@ const CategoryBar = () => {
         }
     
         fetch(url, requestOptions)
-          .then(res => res.json())
+          .then(res => {
+              if (res.ok) return res.json()
+              else throw new Error()
+          })
           .then(res=>{
             setCategoryData(res)
+            setErrMsg(null)
           })
-      },[authCtx.token])
+          .catch(()=>{
+              setErrMsg('Something went wrong!')
+          })
+      },
+      [authCtx.token]
+    )
 
     const options = {
         indexAxis: 'y',
@@ -86,6 +96,17 @@ const CategoryBar = () => {
                     size: 25,
                 }
             },
+            tooltip: {
+                enabled: true,
+                callbacks: {
+                    label: function(context) {
+                        let currentValue = context.raw
+                        let totalSum = context.dataset.data.reduce((val1,val2)=>val1+val2)
+                        let percent = currentValue*100/totalSum
+                        return `${context.label}: ${Math.round(percent)}%, ₹ ${currentValue}`
+                    },
+                }
+            }
         },
         scales: {
             y: {
@@ -115,7 +136,12 @@ const CategoryBar = () => {
         labels,
         datasets: [
             {
-                data: categoryOptions.map((category) => categoryData?categoryData[selectedYear][selectedMonth][category.value]:0),
+                data: categoryOptions.map(
+                    (category) => {
+                        let dataValue = categoryData?categoryData[selectedYear][selectedMonth][category.value]:0
+                        return dataValue || 0
+                    }
+                ),
                 borderColor: 'transparent',
                 backgroundColor: '#23395d',
             }
@@ -138,6 +164,9 @@ const CategoryBar = () => {
               onChange={(ev)=>setSelectedMonth(ev.value)}
             />
           </div>
+          {
+          (errMsg) && <p className="chart-err-text">{errMsg}</p>
+          }
       </div>
   );
 }

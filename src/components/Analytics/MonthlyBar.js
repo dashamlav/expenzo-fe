@@ -33,6 +33,7 @@ const MonthlyBar = () => {
   const yearOptions = getYearOptions()
   const [selectedYear, setSelectedYear] = useState(yearOptions[0].value)
   const [monthlyData, setMonthlyData] = useState(null)
+  const [errMsg, setErrMsg] = useState(null)
 
   useEffect(()=>{
 
@@ -46,10 +47,17 @@ const MonthlyBar = () => {
     }
 
     fetch(url, requestOptions)
-      .then(res => res.json())
-      .then(res=>{
-        setMonthlyData(res)
-      })
+    .then(res => {
+        if (res.ok) return res.json()
+        else throw new Error()
+    })
+    .then(res=>{
+      setMonthlyData(res)
+      setErrMsg(null)
+    })
+    .catch(()=>{
+        setErrMsg('Something went wrong!')
+    })
   },[authCtx.token])
 
   const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -114,6 +122,9 @@ const MonthlyBar = () => {
           <p style={{margin: "unset", marginTop: "1em", fontSize:"1.3em"}}> 
             Total expense for {selectedYear} is ₹{data.datasets[0].data.reduce((val1,val2)=>val1+val2)}
           </p>
+          {
+          (errMsg) && <p className="chart-err-text">{errMsg}</p>
+          }
       </div>
   )
 }
