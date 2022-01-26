@@ -34,6 +34,7 @@ const PaymentPie = () => {
     const [selectedMonth, setSelectedMonth] = useState(monthOptions[0].value)
     const [selectedYear, setSelectedYear] = useState(yearOptions[0].value)
     const [transactionTypeData, setTransactionTypeData] = useState(null)
+    const [errMsg, setErrMsg] = useState(null)
     const authCtx = useContext(AuthContext)
 
     useEffect(()=>{
@@ -48,9 +49,16 @@ const PaymentPie = () => {
         }
     
         fetch(url, requestOptions)
-          .then(res => res.json())
+          .then(res => {
+              if (res.ok) return res.json()
+              else throw new Error()
+          })
           .then(res=>{
             setTransactionTypeData(res)
+            setErrMsg(null)
+          })
+          .catch(()=>{
+              setErrMsg('Something went wrong!')
           })
       },[authCtx.token])
 
@@ -69,11 +77,9 @@ const PaymentPie = () => {
                 enabled: true,
                 callbacks: {
                     label: function(context) {
-                        console.log(context)
                         let currentValue = context.raw
                         let totalSum = context.dataset.data.reduce((val1,val2)=>val1+val2)
                         let percent = currentValue*100/totalSum
-                        
                         return `${context.label}: ${Math.round(percent)}%, ₹ ${currentValue}`
                     },
                 }
@@ -87,7 +93,7 @@ const PaymentPie = () => {
         datasets: [
           {
             data: transactionTypeOptions.map(
-                (ttype)=> {
+                (ttype)=>{
                     let dataValue = transactionTypeData?transactionTypeData[selectedYear][selectedMonth][ttype.value]:0
                     return dataValue || 0
                 }
@@ -131,6 +137,9 @@ const PaymentPie = () => {
                 onChange={(ev)=>setSelectedMonth(ev.value)}
             />
           </div>
+          {
+          (errMsg) && <p className="chart-err-text">{errMsg}</p>
+          }
         </div>
     )
 }
