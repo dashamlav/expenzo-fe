@@ -47,7 +47,7 @@ const ExpenseListComponent = (props) => {
                 setTotalCount(res.count)
                 setIsLoading(false)
             })
-            .catch(err=>console.log(err))
+            .catch(err=>err)
     }, [authCtx, expenseCtx.changed, filterCtx.filters, pageNumber])
 
 
@@ -64,7 +64,6 @@ const ExpenseListComponent = (props) => {
 
       fetch(downloadCsvUrl, requestOptions)
         .then(res=>{
-          console.log(res)
           if(res.ok) return res.blob()
           setErrorMsg("You're sending too many requests.")
           setTimeout(()=>setErrorMsg(null), 5000)
@@ -78,7 +77,7 @@ const ExpenseListComponent = (props) => {
             downloadStream(blob,`${partialEmail}_${dateStamp}_expense_data`)
           }
         })
-        .catch(err=>console.log(err))
+        .catch(err=>err)
     }
 
     return(
@@ -92,7 +91,7 @@ const ExpenseListComponent = (props) => {
                   <p> Fetching your expense data...</p>
                 </div> :
 
-                (expenseData.length && expenseData.length > 0) ?
+                (expenseData && expenseData.length && expenseData.length > 0) ?
 
                   expenseData.map((singleExpense)=>{
                     return (
@@ -118,7 +117,7 @@ const ExpenseListComponent = (props) => {
             }
           </div>
           <Pagination onPageChange={onPageChange} totalCount={totalCount} currentPageNo={pageNumber}></Pagination>
-          {(expenseData.length && expenseData.length > 0) ?
+          {(expenseData && expenseData.length && expenseData.length > 0) ?
             <div>
               <button type="button" className="download-csv-btn green" onClick={downloadCSV}> DOWNLOAD AS CSV</button>
               {errorMsg && <p style={{margin:"unset", color:"#D03D56"}}>{errorMsg}</p>}

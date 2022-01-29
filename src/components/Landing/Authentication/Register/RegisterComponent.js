@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import '../auth.scss'
 import AuthContext from '../../../../contextManager/AuthContextManager'
 import { urlFormat } from '../../../../utils/urlFormat'
@@ -43,10 +43,15 @@ const RegisterComponent = () => {
 
         fetch(registerPreflightUrl, requestOptions)
             .then(res=>{
-                if(!res.ok) {
+                if(res.status === 400) {
                     setErrorMsg("Account already exists!")
                     setBorderClass("auth-form-border-error")
-                } else {
+                } 
+                else if (!res.ok) {
+                    setErrorMsg("Something went wrong")
+                    setBorderClass("auth-form-border-error")
+                }
+                else {
                     setErrorMsg(null)
                     setBorderClass("auth-form-border")
                     setStep(2)

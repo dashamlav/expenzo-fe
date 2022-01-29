@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import './modalContent.scss'
 import LinkedInLogo from '../../../assets/images/linkedinlogo.svg'
 import GithubLogo from '../../../assets/images/githublogo.svg'
+import { urlFormat } from '../../../utils/urlFormat'
 
 const HowItWorks = () => {
     return (
@@ -12,13 +13,47 @@ const HowItWorks = () => {
 } 
 
 const Feedback = () => {
+
+    const [errMsg, setErrMsg] = useState(null)
+    const formElement = useRef(null)
+    const submitFeedbackHandler = (event) => {
+        event.preventDefault()
+
+        let name = event.target.name.value
+        let email = event.target.email.value
+        let feedback = event.target.feedback.value
+
+        const sendFeedbackUrl = urlFormat('feedback/post-feedback')
+
+        const formData = new FormData()
+        formData.append('name', name)
+        formData.append('email', email)
+        formData.append('feedback', feedback)
+
+        const requestOptions = {
+            method: "POST",
+            body: formData,
+            mode: 'cors',
+
+        }
+
+        fetch(sendFeedbackUrl, requestOptions)
+            .then(res=>{
+                if(!res.ok) setErrMsg("Something went wrong")
+                else setErrMsg("Thanks for your feedback!")
+            })
+            .catch(err=>setErrMsg('Network Error'))
+        
+        formElement.current.reset()
+    }
+
     return (
         <div className="modal-content">
             <div id="feedback-card-title">
                 <h2 className="modal-title">FEEDBACK</h2>
                 <div className="feedback-underline-title"></div>
             </div>
-            <form className="feedback-form">
+            <form className="feedback-form" onSubmit={submitFeedbackHandler} ref={formElement}>
                 <label for="feedback-user-name" className="feedback-label">
                     &nbsp;NAME
                 </label>
@@ -26,13 +61,16 @@ const Feedback = () => {
                 <div className="feedback-form-border"></div>
                 <label for="feedback-user-email" className="feedback-label">&nbsp;EMAIL
                 </label>
-                <input id="feedback-user-email" className="feedback-form-content" type="email" name="email" required />
+                <input id="feedback-user-email" className="feedback-form-content" type="email" name="email" />
                 <div className="feedback-form-border"></div>
                 <label for="feedback-text" className="feedback-label">&nbsp;MESSAGE
                 </label>
-                <textarea id="feedback-text" className="feedback-form-content" name="text" required />
+                <textarea id="feedback-text" className="feedback-form-content" name="feedback" maxLength="1000" required />
                 <div className="feedback-form-border"></div>
-                <input id="feedback-submit-btn" type="submit" name="submit" value="SUBMIT" />
+                <input style={{marginTop:"1.5em"}} id="feedback-submit-btn" type="submit" name="submit" value="SUBMIT" />
+                {
+                    errMsg && <p style={{color:errMsg==='Thanks for your feedback!'?"darkgreen":"#D03D56"}}>{errMsg}</p>
+                }
             </form>
         </div>
     )
