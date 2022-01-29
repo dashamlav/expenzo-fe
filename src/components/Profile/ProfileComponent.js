@@ -14,7 +14,6 @@ const ProfileComponent = () => {
 
     const expenseCtx = useContext(SingleExpenseContext)
     const singleExpense = expenseCtx.singleExpense
-    console.log(singleExpense)
     return(
       <div className="profile-container">
         <span className="expense-filters-span">

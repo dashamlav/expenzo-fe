@@ -46,7 +46,7 @@ const ExpenseDisplay = (props) => {
                     })
                 }
             })
-            .catch(err=>console.log(err))
+            .catch(err=>err)
     }
 
     return (

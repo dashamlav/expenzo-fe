@@ -107,7 +107,6 @@ const ExpenseForm = (props) => {
                     formElement.current.reset()
                     categoryRef.current.setValue(categoryOptions[14])
                     transactionTypeRef.current.setValue(transactionTypeOptions[0])
-                    console.log(categoryRef.current)
                     setErrorStatus(201)
                     setErrorMsg("New record created successfully")
                     setTimeout(()=>{
@@ -197,7 +196,7 @@ const ExpenseForm = (props) => {
                     expenseCtx.expenseChangedHandler()
                 }
             })
-            .catch(err=>console.log(err))
+            .catch(err=>err)
     }
     return(
         <form onSubmit={editMode?updateExpense:createExpense} ref={formElement}>
