@@ -1,7 +1,5 @@
 import React from 'react'
-// import '../../../index.css'
 import './intro.scss'
-import Card from '../../UI/Card'
 
 const IntroComponent = () => {
 

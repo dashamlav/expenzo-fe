@@ -49,7 +49,7 @@ const Header = () => {
     return(
         <nav>
             <div className="brand-name">
-                <Link to="/profile">
+                <Link to="/profile" style={{textDecoration:"none"}}>
                     EXPENZO
                 </Link>
                 </div>
@@ -64,7 +64,7 @@ const Header = () => {
                     <React.Fragment>
                         <li className="nav-list"><p id="collections">MY COLLECTIONS</p></li>
                         <li className="nav-list">
-                            <Link to="/analytics">
+                            <Link to="/analytics" style={{textDecoration:"none"}}>
                                 <p id="analytics">
                                     ANALYTICS
                                 </p>
@@ -78,7 +78,7 @@ const Header = () => {
                                             (isDropdownVisible) ?
                                             <div className="dropdown-content" >
                                                 <Link to="/account-settings">Account Settings</Link>
-                                                <a onClick={logout}>Logout  <i style={{"font-size":"15px"}} className="fa">&#xf08b;</i></a>
+                                                <a id="logout-btn" onClick={logout}>Logout  <i style={{"font-size":"15px"}} className="fa">&#xf08b;</i></a>
                                             </div> :
                                             <React.Fragment></React.Fragment>
                                         }

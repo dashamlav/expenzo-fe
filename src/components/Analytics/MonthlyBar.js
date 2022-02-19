@@ -58,7 +58,8 @@ const MonthlyBar = () => {
     .catch(()=>{
         setErrMsg('Something went wrong!')
     })
-  },[authCtx.token])
+  },
+  [authCtx.token])
 
   const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   const options = {

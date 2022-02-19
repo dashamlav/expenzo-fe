@@ -7,6 +7,7 @@ import SingleExpenseContext from '../../../contextManager/ExpenseContext'
 import ExpenseFilterContext from '../../../contextManager/ExpenseFilterContext'
 import Pagination from './ExpensePagination'
 import { downloadStream } from '../../../utils/generalUtils'
+import LoadingSpinner from '../../UI/Loading'
 
 const ExpenseListComponent = (props) => {
 
@@ -48,7 +49,7 @@ const ExpenseListComponent = (props) => {
                 setIsLoading(false)
             })
             .catch(err=>err)
-    }, [authCtx, expenseCtx.changed, filterCtx.filters, pageNumber])
+    }, [authCtx.token, expenseCtx.changed, filterCtx.filters, pageNumber])
 
 
     const downloadCSV = () => {
@@ -87,7 +88,7 @@ const ExpenseListComponent = (props) => {
               (isLoading) ?
 
                 <div className="wait-message">
-                  <div className="wait-loader"></div>
+                  <LoadingSpinner></LoadingSpinner>
                   <p> Fetching your expense data...</p>
                 </div> :
 
