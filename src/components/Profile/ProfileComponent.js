@@ -30,7 +30,7 @@ const ProfileComponent = () => {
         {
           (clickedNewExpense || singleExpense.id) ?
           <ExpenseExpandedComponent 
-            onClickExpandImage={(imgSource)=>setImageSource(imgSource)} 
+            onClickExpandImage={(imgSource)=>setImageSource(imgSource)}
             newMode={newMode}
             setNewMode={setNewMode} />:
             <React.Fragment></React.Fragment>
@@ -39,7 +39,7 @@ const ProfileComponent = () => {
        {
          (imageSource)?
           <Modal closeModalFn={() => setImageSource('')}>
-              <img src={imageSource} alt="Expense"></img>
+              <img src={imageSource} alt="Expense" style={{maxWidth:"100em"}}></img>
           </Modal>:
           <React.Fragment></React.Fragment>
        }

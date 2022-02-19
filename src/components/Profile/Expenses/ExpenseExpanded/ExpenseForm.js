@@ -289,7 +289,7 @@ const ExpenseForm = (props) => {
                             type="file"
                             name="image"
                             className="expense-form-content"
-                            accept=".pdf, .jpg, .png, .jpeg"
+                            accept=".jpg, .png, .jpeg"
                         >
                         </input>
                   

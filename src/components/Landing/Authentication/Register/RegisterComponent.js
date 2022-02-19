@@ -109,7 +109,8 @@ const RegisterComponent = () => {
             .then((data)=>{
                 if(data) {
                     const token = data.token
-                    authCtx.loginHandler(token,formData.email)
+                    const expiryTime = data.tokenExpiryTime
+                    authCtx.loginHandler(token, expiryTime, formData.email)
                     navigate('/profile')
                 }
             })
