@@ -7,9 +7,11 @@ import VegBurger from '../UI/Burger'
 import useComponentVisible from '../../utils/outsideClick'
 import AuthContext from '../../contextManager/AuthContextManager'
 import { Link } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 
 const Header = () => {
 
+    const [cookies, setCookie, deleteCookie] = useCookies(['user_name'])
     const [modalToShow, setModalToShow] = useState(null)
     const [ref, isDropdownVisible, setIsDropdownVisible] = useComponentVisible(false)
     const authCtx = useContext(AuthContext)
@@ -62,7 +64,7 @@ const Header = () => {
                 {
                     (authCtx.isLoggedIn)?
                     <React.Fragment>
-                        <li className="nav-list"><p id="collections">MY COLLECTIONS</p></li>
+                        <li className="nav-list"><p id="collections">COLLECTIONS</p></li>
                         <li className="nav-list">
                             <Link to="/analytics" style={{textDecoration:"none"}}>
                                 <p id="analytics">
@@ -77,6 +79,7 @@ const Header = () => {
                                         {
                                             (isDropdownVisible) ?
                                             <div className="dropdown-content" >
+                                                <a> Hi {cookies['user_name']} </a>
                                                 <Link to="/account-settings">Account Settings</Link>
                                                 <a id="logout-btn" onClick={logout}>Logout  <i style={{"font-size":"15px"}} className="fa">&#xf08b;</i></a>
                                             </div> :
@@ -89,14 +92,10 @@ const Header = () => {
                     </React.Fragment>:
                     <React.Fragment></React.Fragment>
                 }
-
             </ul>
                 {   
                     showModalFn()
-                }
-                   
-                    
-                
+                }   
         </nav>
     )
 }

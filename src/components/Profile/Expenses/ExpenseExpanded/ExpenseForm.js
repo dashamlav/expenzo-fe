@@ -242,6 +242,7 @@ const ExpenseForm = (props) => {
                 } />
                 <ExpenseKeyValue keyname={editMode?`${singleData.category}{Math.random()}`:""} fieldname="CATEGORY" val={ 
                         <Select
+                            maxMenuHeight = "25vh"
                             options={categoryOptions}
                             styles={ExpenseFormSelectStyle}
                             placeholder="Select category"

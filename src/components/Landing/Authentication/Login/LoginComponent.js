@@ -39,7 +39,8 @@ const LoginComponent = () => {
                 if(data) {
                     const token = data.token
                     const expiryTime = data.tokenExpiryTime
-                    authCtx.loginHandler(token, expiryTime, email)
+                    const user_name = data.user_name
+                    authCtx.loginHandler(token, expiryTime, email, user_name)
                     navigate('/profile')
                 }
             })
