@@ -13,7 +13,7 @@ const AuthContext = React.createContext({
 
 export const AuthContextProvider = (props) => {
 
-    const [cookies, setCookie, deleteCookie] = useCookies(['auth_token', 'token_expiry', 'logged_in', 'user_email'])
+    const [cookies, setCookie, deleteCookie] = useCookies(['auth_token', 'token_expiry', 'logged_in', 'user_email', 'user_name'])
     let initialToken = cookies['auth_token'] ? cookies['auth_token'] : null
     let initialEmail = cookies['user_email'] ? cookies['user_email'] : null
     let initialExpiry = cookies['token_expiry'] ? cookies['token_expiry']: null
@@ -22,11 +22,12 @@ export const AuthContextProvider = (props) => {
     const [userEmail, setUserEmail] = useState(initialEmail)
     const isLoggedIn = token ? true : false
 
-    const loginHandler = (token, expiryTime, userEmail) => {
+    const loginHandler = (token, expiryTime, userEmail, userName) => {
         setCookie('auth_token', token)
         setCookie('token_expiry', expiryTime)
         setCookie('logged_in', true)
         setCookie('user_email', userEmail)
+        setCookie('user_name', userName)
         setToken(token)
         setUserEmail(userEmail)
     }
@@ -34,6 +35,7 @@ export const AuthContextProvider = (props) => {
         deleteCookie('auth_token')
         deleteCookie('logged_in')
         deleteCookie('user_email')
+        deleteCookie('user_name')
         setToken(null)
         setUserEmail(null)
     }
